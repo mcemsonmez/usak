@@ -59,7 +59,7 @@ const rows: {
 const badge: Record<Result, { label: string; cls: string }> = {
   matched: { label: "Matched", cls: "bg-good-soft text-good" },
   overpaid: { label: "Overpaid", cls: "bg-good-soft text-good" },
-  partial: { label: "Partial", cls: "bg-warn-soft text-[oklch(0.45_0.11_65)]" },
+  partial: { label: "Partial", cls: "bg-warn-soft text-warn-ink" },
   review: { label: "Needs review", cls: "bg-bad-soft text-bad" },
 };
 
@@ -132,8 +132,7 @@ export function HeroMatcher() {
           <span className="text-good font-semibold">{count(["matched", "overpaid"])}</span> matched
         </span>
         <span>
-          <span className="font-semibold text-[oklch(0.5_0.12_65)]">{count(["partial"])}</span>{" "}
-          partial
+          <span className="text-warn-ink font-semibold">{count(["partial"])}</span> partial
         </span>
         <span>
           <span className="text-bad font-semibold">{count(["review"])}</span> to review

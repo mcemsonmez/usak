@@ -78,48 +78,50 @@ export default async function ChargesPage({
         </div>
         <GenerateChargesButton period={period} label={formatPeriod(period)} />
       </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Unit</TableHead>
-            <TableHead>Tenant</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Due</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-            <TableHead className="text-right">Paid</TableHead>
-            <TableHead>Status</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((c) => (
-            <TableRow key={c.id}>
-              <TableCell>
-                <div className="font-medium">{c.lease.unit.label}</div>
-                <div className="text-muted-foreground text-xs">{c.lease.unit.property.name}</div>
-              </TableCell>
-              <TableCell>{c.lease.tenant.fullName}</TableCell>
-              <TableCell>{typeLabel[c.type]}</TableCell>
-              <TableCell className="whitespace-nowrap">{formatDate(c.dueDate)}</TableCell>
-              <TableCell className="text-right tabular-nums">{formatMoney(c.amount)}</TableCell>
-              <TableCell className="text-right tabular-nums">{formatMoney(c.paid)}</TableCell>
-              <TableCell>
-                <ChargeStatusBadge
-                  status={c.status}
-                  overdue={c.status !== "paid" && c.dueDate < today}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
-          {rows.length === 0 && (
+      <div data-table-card className="bg-card overflow-hidden rounded-xl border shadow-xs">
+        <Table>
+          <TableHeader>
             <TableRow>
-              <TableCell colSpan={7} className="text-muted-foreground py-12 text-center">
-                No charges for {formatPeriod(period)} yet. Use “Generate charges” to create them
-                from the active leases.
-              </TableCell>
+              <TableHead>Unit</TableHead>
+              <TableHead>Tenant</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead>Due</TableHead>
+              <TableHead className="text-right">Amount</TableHead>
+              <TableHead className="text-right">Paid</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {rows.map((c) => (
+              <TableRow key={c.id}>
+                <TableCell>
+                  <div className="font-medium">{c.lease.unit.label}</div>
+                  <div className="text-muted-foreground text-xs">{c.lease.unit.property.name}</div>
+                </TableCell>
+                <TableCell>{c.lease.tenant.fullName}</TableCell>
+                <TableCell>{typeLabel[c.type]}</TableCell>
+                <TableCell className="whitespace-nowrap">{formatDate(c.dueDate)}</TableCell>
+                <TableCell className="text-right tabular-nums">{formatMoney(c.amount)}</TableCell>
+                <TableCell className="text-right tabular-nums">{formatMoney(c.paid)}</TableCell>
+                <TableCell>
+                  <ChargeStatusBadge
+                    status={c.status}
+                    overdue={c.status !== "paid" && c.dueDate < today}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+            {rows.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={7} className="text-muted-foreground py-12 text-center">
+                  No charges for {formatPeriod(period)} yet. Use “Generate charges” to create them
+                  from the active leases.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }

@@ -31,54 +31,58 @@ export default async function DebtorsPage() {
             : "Nobody is overdue."
         }
       />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Tenant</TableHead>
-            <TableHead>Unit</TableHead>
-            <TableHead className="text-right">Overdue</TableHead>
-            <TableHead>Months</TableHead>
-            <TableHead>Oldest due</TableHead>
-            <TableHead className="text-right">Days late</TableHead>
-            <TableHead>Reminder</TableHead>
-            <TableHead />
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((r) => (
-            <DebtorRow
-              key={r.leaseId}
-              colSpan={8}
-              draft={r.draft}
-              cells={
-                <>
-                  <TableCell>
-                    <div className="font-medium">{r.lease.tenant.fullName}</div>
-                    <div className="text-muted-foreground text-xs">{r.lease.tenant.email}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div>{r.lease.unit.label}</div>
-                    <div className="text-muted-foreground text-xs">
-                      {r.lease.unit.property.name}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right font-medium tabular-nums">
-                    {formatMoney(r.overdue)}
-                  </TableCell>
-                  <TableCell className="text-sm">
-                    {r.periods.map(formatPeriod).join(", ")}
-                  </TableCell>
-                  <TableCell className="whitespace-nowrap">{formatDate(r.oldestDueDate)}</TableCell>
-                  <TableCell className="text-right tabular-nums">{r.daysOverdue}</TableCell>
-                  <TableCell>
-                    <ReminderBadge level={r.level} />
-                  </TableCell>
-                </>
-              }
-            />
-          ))}
-        </TableBody>
-      </Table>
+      <div data-table-card className="bg-card overflow-hidden rounded-xl border shadow-xs">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Tenant</TableHead>
+              <TableHead>Unit</TableHead>
+              <TableHead className="text-right">Overdue</TableHead>
+              <TableHead>Months</TableHead>
+              <TableHead>Oldest due</TableHead>
+              <TableHead className="text-right">Days late</TableHead>
+              <TableHead>Reminder</TableHead>
+              <TableHead />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((r) => (
+              <DebtorRow
+                key={r.leaseId}
+                colSpan={8}
+                draft={r.draft}
+                cells={
+                  <>
+                    <TableCell>
+                      <div className="font-medium">{r.lease.tenant.fullName}</div>
+                      <div className="text-muted-foreground text-xs">{r.lease.tenant.email}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div>{r.lease.unit.label}</div>
+                      <div className="text-muted-foreground text-xs">
+                        {r.lease.unit.property.name}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right font-medium tabular-nums">
+                      {formatMoney(r.overdue)}
+                    </TableCell>
+                    <TableCell className="text-sm">
+                      {r.periods.map(formatPeriod).join(", ")}
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap">
+                      {formatDate(r.oldestDueDate)}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums">{r.daysOverdue}</TableCell>
+                    <TableCell>
+                      <ReminderBadge level={r.level} />
+                    </TableCell>
+                  </>
+                }
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }

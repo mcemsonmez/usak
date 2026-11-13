@@ -1,47 +1,45 @@
+import { TrendingDown, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-const tones = {
-  none: "",
-  good: "text-good",
-  bad: "text-bad",
-  warn: "text-[oklch(0.5_0.12_65)]",
-} as const;
+const tones = { none: "", good: "text-good", bad: "text-bad", warn: "text-warn-ink" } as const;
 
-/** A KPI card: label, big figure, one line of context. Colour only when the figure means something. */
+/** KPI card: label, big figure, an optional trend chip and one line of context. */
 export function StatTile({
-  index = 0,
   label,
   value,
   detail,
   href,
   tone = "none",
+  chip,
 }: {
   label: string;
   value: React.ReactNode;
   detail?: string;
   href: string;
   tone?: keyof typeof tones;
-  index?: number;
+  chip?: { text: string; up: boolean };
 }) {
   return (
     <Link
       href={href}
-      style={{ ["--i" as string]: index + 2 }}
-      className="enter lift group bg-card hover:border-foreground/20 grid gap-3 rounded-xl border p-5 shadow-xs hover:shadow-sm"
+      className="group from-card to-card bg-card relative grid h-full gap-3 overflow-hidden rounded-xl border bg-gradient-to-t p-5 shadow-xs transition-[transform,border-color,box-shadow] duration-(--dur-short) ease-(--ease-out) hover:-translate-y-0.5 hover:border-white/15 hover:shadow-lg hover:shadow-black/30 dark:from-white/[0.015]"
     >
-      <span className="text-muted-foreground flex items-center justify-between text-sm font-medium">
+      <span
+        aria-hidden
+        className="bg-lime/0 group-hover:bg-lime/10 absolute -top-12 -right-12 size-32 rounded-full blur-2xl transition-colors duration-500"
+      />
+      <span className="text-muted-foreground flex items-center justify-between gap-2 text-sm">
         {label}
-        {tone !== "none" && (
-          <span
-            aria-hidden
-            className={cn(
-              "size-2 rounded-full",
-              tone === "good" && "bg-good",
-              tone === "bad" && "bg-bad",
-              tone === "warn" && "bg-warn",
+        {chip && (
+          <span className="flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-xs font-medium">
+            {chip.up ? (
+              <TrendingUp className="size-3" aria-hidden />
+            ) : (
+              <TrendingDown className="size-3" aria-hidden />
             )}
-          />
+            {chip.text}
+          </span>
         )}
       </span>
       <span

@@ -35,7 +35,7 @@ function Logo({ dark = false }: { dark?: boolean }) {
 
 export default function LandingPage() {
   return (
-    <div className="bg-background">
+    <div className="theme-light bg-background text-foreground">
       <a
         href="#main"
         className="bg-lime text-ink sr-only z-50 rounded-md px-3 py-2 text-sm font-medium focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -234,7 +234,7 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-              <p className="bg-warn-soft rounded-lg px-4 py-3 text-sm font-medium text-[oklch(0.42_0.1_65)]">
+              <p className="bg-warn-soft text-warn-ink rounded-lg px-4 py-3 text-sm font-medium">
                 21% below market. Room for an increase at renewal.
               </p>
               <span className="flex items-center gap-1 text-sm font-medium">

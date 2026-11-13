@@ -32,44 +32,46 @@ export default async function PropertiesPage() {
         description={`${properties.length} properties`}
         action={{ href: "/properties/new", label: "New property" }}
       />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Address</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead className="text-right">Occupied</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {properties.map((p) => {
-            const occupied = p.units.filter((u) => u.status === "occupied").length;
-            return (
-              <TableRow key={p.id}>
-                <TableCell>
-                  <Link href={`/properties/${p.id}`} className="font-medium hover:underline">
-                    {p.name}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  {p.address}, {p.city}
-                </TableCell>
-                <TableCell>{typeLabel[p.type]}</TableCell>
-                <TableCell className="text-right tabular-nums">
-                  {occupied} / {p.units.length}
+      <div data-table-card className="bg-card overflow-hidden rounded-xl border shadow-xs">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Address</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead className="text-right">Occupied</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {properties.map((p) => {
+              const occupied = p.units.filter((u) => u.status === "occupied").length;
+              return (
+                <TableRow key={p.id}>
+                  <TableCell>
+                    <Link href={`/properties/${p.id}`} className="font-medium hover:underline">
+                      {p.name}
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    {p.address}, {p.city}
+                  </TableCell>
+                  <TableCell>{typeLabel[p.type]}</TableCell>
+                  <TableCell className="text-right tabular-nums">
+                    {occupied} / {p.units.length}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+            {properties.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={4} className="text-muted-foreground py-8 text-center">
+                  No properties yet.
                 </TableCell>
               </TableRow>
-            );
-          })}
-          {properties.length === 0 && (
-            <TableRow>
-              <TableCell colSpan={4} className="text-muted-foreground py-8 text-center">
-                No properties yet.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }

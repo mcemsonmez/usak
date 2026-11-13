@@ -51,43 +51,47 @@ export default async function LeasesPage({
           Lease saved. Variable symbol for payments: <span className="font-mono">{created}</span>
         </p>
       )}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Unit</TableHead>
-            <TableHead>Tenant</TableHead>
-            <TableHead>Period</TableHead>
-            <TableHead className="text-right">Rent</TableHead>
-            <TableHead className="text-right">Service</TableHead>
-            <TableHead className="text-right">Due day</TableHead>
-            <TableHead>Var. symbol</TableHead>
-            <TableHead>Status</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {leases.map((l) => (
-            <TableRow key={l.id}>
-              <TableCell>
-                <div className="font-medium">{l.unit.label}</div>
-                <div className="text-muted-foreground text-xs">{l.unit.property.name}</div>
-              </TableCell>
-              <TableCell>{l.tenant.fullName}</TableCell>
-              <TableCell className="text-sm whitespace-nowrap">
-                {formatDate(l.startDate)} – {l.endDate ? formatDate(l.endDate) : "indefinite"}
-              </TableCell>
-              <TableCell className="text-right tabular-nums">{formatMoney(l.rentAmount)}</TableCell>
-              <TableCell className="text-right tabular-nums">
-                {formatMoney(l.serviceChargeAmount)}
-              </TableCell>
-              <TableCell className="text-right tabular-nums">{l.dueDay}.</TableCell>
-              <TableCell className="font-mono text-sm">{l.variableSymbol}</TableCell>
-              <TableCell>
-                <LeaseBadge phase={leasePhase(l, today)} endDate={l.endDate} today={today} />
-              </TableCell>
+      <div data-table-card className="bg-card overflow-hidden rounded-xl border shadow-xs">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Unit</TableHead>
+              <TableHead>Tenant</TableHead>
+              <TableHead>Period</TableHead>
+              <TableHead className="text-right">Rent</TableHead>
+              <TableHead className="text-right">Service</TableHead>
+              <TableHead className="text-right">Due day</TableHead>
+              <TableHead>Var. symbol</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {leases.map((l) => (
+              <TableRow key={l.id}>
+                <TableCell>
+                  <div className="font-medium">{l.unit.label}</div>
+                  <div className="text-muted-foreground text-xs">{l.unit.property.name}</div>
+                </TableCell>
+                <TableCell>{l.tenant.fullName}</TableCell>
+                <TableCell className="text-sm whitespace-nowrap">
+                  {formatDate(l.startDate)} – {l.endDate ? formatDate(l.endDate) : "indefinite"}
+                </TableCell>
+                <TableCell className="text-right tabular-nums">
+                  {formatMoney(l.rentAmount)}
+                </TableCell>
+                <TableCell className="text-right tabular-nums">
+                  {formatMoney(l.serviceChargeAmount)}
+                </TableCell>
+                <TableCell className="text-right tabular-nums">{l.dueDay}.</TableCell>
+                <TableCell className="font-mono text-sm">{l.variableSymbol}</TableCell>
+                <TableCell>
+                  <LeaseBadge phase={leasePhase(l, today)} endDate={l.endDate} today={today} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }

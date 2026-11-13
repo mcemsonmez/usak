@@ -17,8 +17,8 @@ const badgeVariants = cva(
           "border-border bg-card text-muted-foreground [a]:hover:bg-muted",
         good: "bg-good-soft text-good",
         bad: "bg-bad-soft text-bad",
-        warn: "bg-warn-soft text-[oklch(0.45_0.11_65)]",
-        ink: "bg-ink text-white",
+        warn: "bg-warn-soft text-warn-ink",
+        ink: "bg-foreground text-background",
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",

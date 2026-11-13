@@ -62,7 +62,7 @@ history. Petr still owes part of last month's rent.
 
 0. **Landing page** (`/`) – the live matching animation in the hero, the flow diagram, the AI
    lease loop. Click *Open the demo*.
-1. **Dashboard** (`/dashboard`) – collections for the last two months, Petr overdue with a final notice,
+1. **Dashboard** (`/dashboard`) – try ⌘K to jump anywhere and ⌘B to collapse the sidebar. collections for the last two months, Petr overdue with a final notice,
    two leases ending in under 60 days.
 2. **Charges** – click *Generate charges* for this month: 12 charges, Lucie's first month is
    prorated (she moved in on the 10th). Click again: nothing is duplicated.

@@ -75,18 +75,18 @@ restore with `npx skills experimental_install`):
 The app lives in `src/app/(app)` with the sidebar layout; the dashboard is `/dashboard`.
 
 ## Design system
-Light workspace with a black sidebar and one lime accent (inspired by Linear's app shell and
-Ramp's crisp finance UI). Tokens live in `src/app/globals.css`.
-- Geist for text, Geist Mono for money figures (`font-mono tabular-nums`).
-- Status colours have one meaning each: `good` (paid, matched, money in), `bad` (overdue,
-  needs review), `warn` (partial, ending soon). Badge variants: good, bad, warn, ink, outline, secondary.
-- Lime is brand only (active nav, overdue amounts on the dark "Who owes?" board), never a status.
-- White cards with a 1px border and `shadow-xs`; radius 10px.
-- Landing page motion: hero enters once (`.enter`), product loops of 2.5–4 s (`useLoop`), pulses
-  on the flow diagram, one scroll-lit statement. Dashboard: numbers count up (NumberFlow), cards
-  enter once, bars grow. Everything rests under reduced motion.
-- Elsewhere motion is state feedback only: colour/border transitions at `--dur-micro`, buttons scale to 0.98
-  on press; no transition-all, everything respects reduced motion.
+Dark app (shadcn dashboard-01 style), light landing, one lime accent. Tokens in `src/app/globals.css`:
+`:root` holds the dark values, `.theme-light` (on the landing page root) the light ones. In custom
+CSS/SVG use the raw vars (`var(--good)`, `var(--border)`), not `--color-*` (those resolve at :root).
+- App shell (`src/app/(app)/layout.tsx`): shadcn Sidebar (inset, collapses to icons with ⌘B) with
+  grouped nav and live count badges, Quick create menu, header with breadcrumb, ⌘K command menu
+  (`src/components/app`). `template.tsx` animates every page in.
+- Dashboard: "Who owes?" board, KPI cards with trend chips, expected-vs-collected area chart
+  (Recharts via shadcn chart), occupancy radial, activity timeline; sections stagger in (Motion).
+- Geist for text, Geist Mono for money (`font-mono tabular-nums`).
+- Status colours, one meaning each: `good` (paid, money in), `bad` (overdue, review), `warn`
+  (partial, ending soon). Lime is brand only (active nav, Quick create, chart "collected").
+- Motion respects reduced motion everywhere; no transition-all.
 
 ## Rules
 - Speed over completeness: build the smallest thing that demos well. Ask before adding scope.
