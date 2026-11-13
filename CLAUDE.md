@@ -61,6 +61,15 @@ as the nice-to-have. Keep product details out of README.
 - **Geospatial intelligence platform:** enrich property addresses with location data,
   area analysis, location features for rent estimation
 
+## Project skills (`.claude/skills/`)
+UI/motion skills installed with `npx skills add` (versions pinned in `skills-lock.json`;
+restore with `npx skills experimental_install`):
+- Emil Kowalski (`emilkowalski/skills`): `emil-design-eng`, `animate`, `choreograph`,
+  `improve-animations`, `review-animations`, `find-animation-opportunities`, `break-ui`, ...
+  Native-only ones (`write-swift`, `animate-expo`, `mobile-native`, `apple-design`) do not apply here.
+- Taste Skill (`Leonxlnx/taste-skill`): `design-taste-frontend`.
+Keep the dashboard calm: subtle motion only (data app, used on a projector in the demo).
+
 ## Rules
 - Speed over completeness: build the smallest thing that demos well. Ask before adding scope.
 - Single demo organization; keep `organizationId` on tables so multi-tenancy can come later.

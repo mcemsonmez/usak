@@ -2,3 +2,4 @@ pnpm-lock.yaml
 drizzle/
 .next/
 src/components/ui/
+.claude/skills/
