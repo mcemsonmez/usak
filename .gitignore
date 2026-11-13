@@ -43,3 +43,6 @@ next-env.d.ts
 
 # local spec (not in repo)
 usak.pdf
+
+# local Hallmark run log
+.hallmark/
