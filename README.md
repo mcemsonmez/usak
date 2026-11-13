@@ -29,6 +29,18 @@ Long-term plan (9 phases, 14–18 weeks): [`PLAN.md`](PLAN.md).
 Not included (yet): login and multiple organizations, sending real emails/SMS, tenant portal,
 expenses, meters, subscriptions.
 
+## Sponsor products
+
+| Product | What we use | Where in the app |
+|---|---|---|
+| **Featherless** | Vision model Qwen3-VL-30B-A3B-Instruct (OpenAI-compatible API) | **AI lease import**: reads a photo of a signed lease and fills tenant, unit, dates and amounts; saved only after approval |
+| **Apify** | Google Maps Scraper (`compass/crawler-google-places`) | **Maintenance → Find repairers**: rated repairers near the property, with a drafted message |
+| **Apify** | RAG Web Browser (`apify/rag-web-browser`) | **Property → Market rent**: live listings in the district, median vs current rent |
+| **PostHog** | LLM Analytics (`$ai_generation` per AI call) | Every AI lease import: model, tokens, latency, errors |
+| **PostHog** | Product and Web Analytics (posthog-js) | Pageviews and autocapture across the site and app |
+
+Details and code paths: [`presentation/SPONSORS.md`](presentation/SPONSORS.md).
+
 ## Getting started
 
 Requirements: Node.js 20+, pnpm 9, Docker.
