@@ -166,6 +166,8 @@ export const bankTransaction = pgTable(
     counterName: text("counter_name"),
     variableSymbol: text("variable_symbol"),
     message: text("message"),
+    // Lease the payment was matched to (also set for overpayments and manual matches).
+    leaseId: uuid("lease_id").references(() => lease.id, { onDelete: "set null" }),
     importBatchId: uuid("import_batch_id").notNull(),
     importHash: text("import_hash").notNull(), // prevents importing the same row twice
     matchStatus: matchStatus("match_status").notNull().default("unmatched"),
@@ -233,7 +235,8 @@ export const chargeRelations = relations(charge, ({ one, many }) => ({
   allocations: many(paymentAllocation),
 }));
 
-export const bankTransactionRelations = relations(bankTransaction, ({ many }) => ({
+export const bankTransactionRelations = relations(bankTransaction, ({ one, many }) => ({
+  lease: one(lease, { fields: [bankTransaction.leaseId], references: [lease.id] }),
   allocations: many(paymentAllocation),
 }));
 

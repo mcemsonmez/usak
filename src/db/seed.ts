@@ -4,6 +4,8 @@ import "dotenv/config";
 import { sql } from "drizzle-orm";
 import { periodOf, shiftPeriod } from "../server/billing/charges";
 import { generateCharges } from "../server/billing/generate";
+import { importBankCsv } from "../server/bank/import";
+import { historyStatementCsv } from "../server/bank/sample";
 import { db } from "./index";
 import { lease, maintenanceRequest, organization, property, tenant, unit } from "./schema";
 
@@ -252,7 +254,14 @@ async function main() {
   const current = periodOf(new Date().toISOString().slice(0, 10));
   for (const period of [shiftPeriod(current, -2), shiftPeriod(current, -1)]) {
     const { created } = await generateCharges(db, organizationId, period);
-    console.log(`Charges for ${period}: ${created}`);
+    // Everyone paid; Petr paid only part of last month.
+    const petrShort = period === shiftPeriod(current, -1);
+    const imported = await importBankCsv(
+      db,
+      organizationId,
+      historyStatementCsv(period, petrShort),
+    );
+    console.log(`${period}: ${created} charges, payments ${JSON.stringify(imported.byStatus)}`);
   }
 
   console.log(
