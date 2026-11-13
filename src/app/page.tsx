@@ -25,7 +25,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 p-6">
+    <div className="flex max-w-xl flex-col gap-6">
       <div>
         <h1 className="text-3xl font-semibold">usak</h1>
         <p className="text-muted-foreground">
@@ -50,6 +50,6 @@ export default async function Home() {
           ))}
         </dl>
       )}
-    </main>
+    </div>
   );
 }

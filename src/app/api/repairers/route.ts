@@ -17,7 +17,12 @@ export async function GET(req: Request) {
     const issue = params.get("issue");
     const draft =
       issue && repairers[0]
-        ? contactRepairer({ repairer: repairers[0], channel: "sms", issue, propertyAddress: location })
+        ? contactRepairer({
+            repairer: repairers[0],
+            channel: "sms",
+            issue,
+            propertyAddress: location,
+          })
         : null;
     return NextResponse.json({ repairers, draft });
   } catch (e) {

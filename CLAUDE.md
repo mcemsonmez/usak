@@ -5,12 +5,12 @@ AI-powered rental property management platform, similar to Grento.
 **This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
-Status: steps 1–2 done. Next: step 3 (record pages). Demo currency: CZK (Prague demo data).
+Status: steps 1–3 done. Next: step 4 (monthly rent charges). Demo currency: CZK (Prague demo data).
 
 ## Steps
 1. Skeleton: Next.js 15, Tailwind, shadcn/ui, Postgres in Docker, Drizzle (done)
 2. Schema + seed data (done; schema in `src/db/schema.ts`, seed in `src/db/seed.ts`)
-3. Record pages: properties, units, tenants, leases
+3. Record pages: properties, units, tenants, leases (done)
 4. Monthly rent charges (with tests)
 5. Bank CSV import + matching, partial payments, needs-review list (with tests)
 6. Debtor list + dashboard
@@ -76,8 +76,13 @@ as the nice-to-have. Keep product details out of README.
 - `pnpm db:seed`: wipe and reload demo data / `pnpm db:reset`: migrate + seed
 - Later: `pnpm test`
 
-## Folder structure (planned)
-src/app (pages), src/server (business logic), src/db (schema), src/components
+## Folder structure
+- src/app: pages (server components query the DB directly, always filtered by `getOrgId()`)
+- src/server/actions: Server Actions (Zod validation, return `FormState` with `values` on error)
+- src/server: business logic; src/server/org.ts gives the demo organization id
+- src/lib: shared helpers (money, dates, lease phase, form state)
+- src/components/forms: client forms using `useActionState`
+- src/db: schema, client, seed
 
 ## Workflow
 Work on `main` (or short feature branches), commit small and often, push frequently so

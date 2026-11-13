@@ -191,10 +191,7 @@ export const paymentAllocation = pgTable(
     amount: integer("amount").notNull(),
     ...timestamps,
   },
-  (t) => [
-    index("alloc_tx_idx").on(t.bankTransactionId),
-    index("alloc_charge_idx").on(t.chargeId),
-  ],
+  (t) => [index("alloc_tx_idx").on(t.bankTransactionId), index("alloc_charge_idx").on(t.chargeId)],
 );
 
 export const maintenanceRequest = pgTable(
