@@ -5,10 +5,21 @@ AI-powered rental property management platform, similar to Grento.
 **This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
-Status: no code yet. First step is the skeleton (Next.js, DB, schema, seed data).
+Status: step 1 (skeleton) done. Next: step 2 (schema + seed data).
+
+## Steps
+1. Skeleton: Next.js 15, Tailwind, shadcn/ui, Postgres in Docker, Drizzle (done)
+2. Schema + seed data
+3. Record pages: properties, units, tenants, leases
+4. Monthly rent charges (with tests)
+5. Bank CSV import + matching, partial payments, needs-review list (with tests)
+6. Debtor list + dashboard
+7. AI lease extraction (Featherless vision), approve before save, PostHog LLM analytics
+8. Nice-to-have: Apify market rent comparison
+9. Polish, demo script, deploy
 
 ## Stack (planned)
-Next.js 15 App Router, TypeScript strict, Tailwind + shadcn/ui, Drizzle + PostgreSQL, Zod, Vitest.
+Next.js 15 App Router, TypeScript strict, Tailwind + shadcn/ui, Drizzle + PostgreSQL (local Docker), Zod, Vitest.
 No auth, no background job infra, no real email sending (out of scope for 6 hours).
 
 ## Available products (for you, not for README)
@@ -54,8 +65,11 @@ as the nice-to-have. Keep product details out of README.
 - AI output is never saved directly; the user reviews and approves it first.
 - Code, comments, commits and docs are in English.
 
-## Commands (once the skeleton exists)
-- `pnpm dev` / `pnpm test` / `pnpm db:migrate` / `pnpm db:seed` / `pnpm lint`
+## Commands
+- `pnpm db:up` / `pnpm db:down`: start/stop Postgres in Docker
+- `pnpm dev` / `pnpm lint` / `pnpm typecheck`
+- `pnpm db:generate` / `pnpm db:migrate` / `pnpm db:studio`
+- Later: `pnpm test`, `pnpm db:seed`
 
 ## Folder structure (planned)
 src/app (pages), src/server (business logic), src/db (schema), src/components

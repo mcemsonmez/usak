@@ -45,8 +45,18 @@ tenant portal, maintenance requests, expenses, meters, subscriptions, background
 Next.js 15 (App Router) · TypeScript · Tailwind + shadcn/ui · PostgreSQL + Drizzle · Zod ·
 Vitest · Vercel.
 
+## Getting started
+
+Requirements: Node.js 20+, pnpm 9, Docker.
+
+```bash
+pnpm install
+cp .env.example .env   # then fill in the keys
+pnpm db:up             # Postgres in Docker
+pnpm dev               # http://localhost:3000
+```
+
 ## Open decisions
 - Demo market and currency (e.g. Czechia / CZK or Turkey / TRY)
-- Hosted Postgres (Neon/Supabase) or local Docker for the demo
 - Which nice-to-have to build: rent comparison or location insights
 - Who builds what (2 people)
