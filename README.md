@@ -38,14 +38,17 @@ pnpm install
 cp .env.example .env   # fill in the API keys
 pnpm db:up             # Postgres in Docker
 pnpm db:reset          # create tables + demo data
-pnpm dev               # http://localhost:3000
+pnpm dev               # http://localhost:3000 (landing), /dashboard (app)
 ```
+
+For a live demo use `pnpm demo` (production build: faster, and no dev overlay).
 
 Reset the demo at any time with `pnpm db:seed`.
 
 | Command | What it does |
 |---|---|
-| `pnpm dev` | Start the app |
+| `pnpm dev` | Start the app (development) |
+| `pnpm demo` | Production build and start, for presenting |
 | `pnpm test` | Unit tests (charges, matching, CSV parsing, debtors, AI parsing, ranking) |
 | `pnpm lint` / `pnpm typecheck` / `pnpm format` | Code quality |
 | `pnpm db:up` / `pnpm db:down` | Start / stop Postgres |
@@ -57,7 +60,9 @@ Reset the demo at any time with `pnpm db:seed`.
 Demo data: a Prague landlord with 3 properties, 7 units, 6 tenants, two months of payment
 history. Petr still owes part of last month's rent.
 
-1. **Dashboard** – collections for the last two months, Petr overdue with a final notice,
+0. **Landing page** (`/`) – the live matching animation in the hero, the flow diagram, the AI
+   lease loop. Click *Open the demo*.
+1. **Dashboard** (`/dashboard`) – collections for the last two months, Petr overdue with a final notice,
    two leases ending in under 60 days.
 2. **Charges** – click *Generate charges* for this month: 12 charges, Lucie's first month is
    prorated (she moved in on the 10th). Click again: nothing is duplicated.
@@ -82,7 +87,8 @@ history. Petr still owes part of last month's rent.
 ## Project structure
 
 ```
-src/app           pages (server components, always filtered by the demo organization)
+src/app/(site)    landing page
+src/app/(app)     the app: dashboard and record pages (server components, filtered by organization)
 src/server        business logic
   billing/        charge calculation, debtors, reminders
   bank/           CSV parsing, payment matching, import, sample statements

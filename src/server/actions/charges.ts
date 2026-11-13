@@ -16,7 +16,7 @@ export async function generateChargesAction(
   if (!isPeriod(period)) return { error: "Invalid period" };
   const { created, existing } = await generateCharges(db, await getOrgId(), period);
   revalidatePath("/charges");
-  revalidatePath("/");
+  revalidatePath("/dashboard");
   return {
     message:
       created === 0

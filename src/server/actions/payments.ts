@@ -26,7 +26,7 @@ export async function importStatementAction(
   const summary = await importBankCsv(db, await getOrgId(), await file.text());
   revalidatePath("/payments");
   revalidatePath("/charges");
-  revalidatePath("/");
+  revalidatePath("/dashboard");
   return { summary };
 }
 
@@ -69,6 +69,6 @@ export async function matchManuallyAction(
 
   revalidatePath("/payments");
   revalidatePath("/charges");
-  revalidatePath("/");
+  revalidatePath("/dashboard");
   return {};
 }

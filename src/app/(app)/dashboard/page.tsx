@@ -1,6 +1,7 @@
 import { and, count, desc, eq, gt } from "drizzle-orm";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { AnimatedNumber } from "@/components/animated-number";
 import { ReminderBadge } from "@/components/reminder-badge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -94,9 +95,21 @@ export default async function Dashboard() {
       {/* Signature: the app's one question, answered first. */}
       <section
         aria-labelledby="answer"
-        className="bg-ink grid overflow-hidden rounded-2xl text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
+        className="enter bg-ink relative isolate grid overflow-hidden rounded-2xl text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
+        style={{ ["--i" as string]: 1 }}
       >
+        <div
+          aria-hidden
+          className="bg-lime/20 absolute -top-24 -left-16 -z-10 size-72 rounded-full blur-[90px]"
+        />
         <div className="grid content-between gap-6 p-6 sm:p-8">
+          <span className="text-sidebar-muted flex items-center gap-2 text-xs font-medium">
+            <span
+              aria-hidden
+              className="live-dot text-lime relative inline-flex size-2 rounded-full bg-current"
+            />
+            Live from your bank imports
+          </span>
           <h2 id="answer" className="text-4xl font-semibold sm:text-5xl">
             Who owes?
           </h2>
@@ -153,7 +166,8 @@ export default async function Dashboard() {
       <section aria-label="Key figures" className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <StatTile
           label="Collected this month"
-          value={formatMoney(thisMonth.collected)}
+          index={0}
+          value={<AnimatedNumber kind="money" value={thisMonth.collected} />}
           detail={
             thisMonth.billed
               ? `${pct(thisMonth.collected, thisMonth.billed)} of ${formatMoney(thisMonth.billed)} billed`
@@ -164,27 +178,36 @@ export default async function Dashboard() {
         />
         <StatTile
           label="Overdue"
-          value={formatMoney(overdueTotal)}
+          index={1}
+          value={<AnimatedNumber kind="money" value={overdueTotal} />}
           detail={`${debtors.length} tenant${debtors.length === 1 ? "" : "s"} late`}
           href="/debtors"
           tone={overdueTotal > 0 ? "bad" : "none"}
         />
         <StatTile
           label="Occupancy"
-          value={pct(occupied, units.length)}
+          index={2}
+          value={
+            <AnimatedNumber
+              kind="percent"
+              value={units.length ? Math.round((occupied / units.length) * 100) : 0}
+            />
+          }
           detail={`${occupied} of ${units.length} units let`}
           href="/properties"
         />
         <StatTile
           label="To review"
-          value={String(review.n)}
+          index={3}
+          value={<AnimatedNumber value={review.n} />}
           detail="Payments not matched"
           href="/payments"
           tone={review.n > 0 ? "warn" : "none"}
         />
         <StatTile
           label="New repairs"
-          value={String(maintenance.n)}
+          index={4}
+          value={<AnimatedNumber value={maintenance.n} />}
           detail="Waiting for a repairer"
           href="/maintenance"
           tone={maintenance.n > 0 ? "warn" : "none"}
@@ -223,10 +246,13 @@ export default async function Dashboard() {
                   aria-label={`${formatMoney(m.collected)} collected, ${formatMoney(m.overdue)} overdue, ${formatMoney(m.notDue)} not due yet`}
                 >
                   {m.collected > 0 && (
-                    <div className="bg-good rounded-full" style={{ flexGrow: m.collected }} />
+                    <div
+                      className="grow-x bg-good rounded-full"
+                      style={{ flexGrow: m.collected }}
+                    />
                   )}
                   {m.overdue > 0 && (
-                    <div className="bg-bad rounded-full" style={{ flexGrow: m.overdue }} />
+                    <div className="grow-x bg-bad rounded-full" style={{ flexGrow: m.overdue }} />
                   )}
                   {m.notDue > 0 && <div style={{ flexGrow: m.notDue }} />}
                 </div>

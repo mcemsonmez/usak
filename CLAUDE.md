@@ -70,6 +70,10 @@ restore with `npx skills experimental_install`):
 - Taste Skill (`Leonxlnx/taste-skill`): `design-taste-frontend`.
 - Hallmark (`nutlope/hallmark`): `hallmark` (its Floor rules are followed; full runs only when named).
 
+## Routes
+`/` is the marketing landing page (`src/app/(site)`, components in `src/components/site`).
+The app lives in `src/app/(app)` with the sidebar layout; the dashboard is `/dashboard`.
+
 ## Design system
 Light workspace with a black sidebar and one lime accent (inspired by Linear's app shell and
 Ramp's crisp finance UI). Tokens live in `src/app/globals.css`.
@@ -78,7 +82,10 @@ Ramp's crisp finance UI). Tokens live in `src/app/globals.css`.
   needs review), `warn` (partial, ending soon). Badge variants: good, bad, warn, ink, outline, secondary.
 - Lime is brand only (active nav, overdue amounts on the dark "Who owes?" board), never a status.
 - White cards with a 1px border and `shadow-xs`; radius 10px.
-- Motion is state feedback only: colour/border transitions at `--dur-micro`, buttons scale to 0.98
+- Landing page motion: hero enters once (`.enter`), product loops of 2.5–4 s (`useLoop`), pulses
+  on the flow diagram, one scroll-lit statement. Dashboard: numbers count up (NumberFlow), cards
+  enter once, bars grow. Everything rests under reduced motion.
+- Elsewhere motion is state feedback only: colour/border transitions at `--dur-micro`, buttons scale to 0.98
   on press; no transition-all, everything respects reduced motion.
 
 ## Rules

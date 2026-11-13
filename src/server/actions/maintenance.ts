@@ -31,7 +31,7 @@ export async function createMaintenanceRequest(
   if (!u) return { error: "Unit not found", values };
   await db.insert(maintenanceRequest).values({ ...parsed.data, organizationId, status: "new" });
   revalidatePath("/maintenance");
-  revalidatePath("/");
+  revalidatePath("/dashboard");
   return {};
 }
 
@@ -46,7 +46,7 @@ export async function updateMaintenanceStatus(formData: FormData) {
       and(eq(maintenanceRequest.id, id), eq(maintenanceRequest.organizationId, organizationId)),
     );
   revalidatePath("/maintenance");
-  revalidatePath("/");
+  revalidatePath("/dashboard");
 }
 
 async function loadRequest(id: string) {

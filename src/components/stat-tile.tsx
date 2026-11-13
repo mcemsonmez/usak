@@ -10,6 +10,7 @@ const tones = {
 
 /** A KPI card: label, big figure, one line of context. Colour only when the figure means something. */
 export function StatTile({
+  index = 0,
   label,
   value,
   detail,
@@ -17,15 +18,17 @@ export function StatTile({
   tone = "none",
 }: {
   label: string;
-  value: string;
+  value: React.ReactNode;
   detail?: string;
   href: string;
   tone?: keyof typeof tones;
+  index?: number;
 }) {
   return (
     <Link
       href={href}
-      className="group bg-card hover:border-foreground/20 grid gap-3 rounded-xl border p-5 shadow-xs transition-[border-color,box-shadow] duration-(--dur-short) ease-(--ease-out) hover:shadow-sm"
+      style={{ ["--i" as string]: index + 2 }}
+      className="enter lift group bg-card hover:border-foreground/20 grid gap-3 rounded-xl border p-5 shadow-xs hover:shadow-sm"
     >
       <span className="text-muted-foreground flex items-center justify-between text-sm font-medium">
         {label}

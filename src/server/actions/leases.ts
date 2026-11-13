@@ -59,6 +59,6 @@ export async function createLeaseFromReview(
 
   revalidatePath("/leases");
   revalidatePath("/tenants");
-  revalidatePath("/");
+  revalidatePath("/dashboard");
   redirect(`/leases?created=${result.variableSymbol}`);
 }

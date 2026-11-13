@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/properties", label: "Properties", icon: Building2 },
   { href: "/tenants", label: "Tenants", icon: Users },
   { href: "/leases", label: "Leases", icon: FileText },
@@ -27,7 +27,7 @@ const links = [
 
 function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5 text-white">
+    <Link href="/dashboard" className="flex items-center gap-2.5 text-white">
       <span className="bg-lime text-ink grid size-7 place-content-center rounded-md text-sm font-bold">
         u
       </span>
@@ -38,7 +38,7 @@ function Logo() {
 
 export function Sidebar() {
   const pathname = usePathname();
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isActive = (href: string) => pathname.startsWith(href);
 
   return (
     <>
