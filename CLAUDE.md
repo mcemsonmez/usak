@@ -5,7 +5,7 @@ AI-powered rental property management platform, similar to Grento.
 **This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
-Status: steps 1–6 done. Next: step 7 (AI lease extraction). Demo currency: CZK (Prague demo data).
+Status: steps 1–7 done. Next: step 8 (Apify: market rent + repairers). Demo currency: CZK (Prague demo data).
 
 ## Steps
 1. Skeleton: Next.js 15, Tailwind, shadcn/ui, Postgres in Docker, Drizzle (done)
@@ -14,7 +14,7 @@ Status: steps 1–6 done. Next: step 7 (AI lease extraction). Demo currency: CZK
 4. Monthly rent charges (done; `src/server/billing/charges.ts` is pure + tested, `generate.ts` writes to DB)
 5. Bank CSV import + matching (done; `src/server/bank/`: csv.ts + matching.ts are pure + tested, import.ts writes to DB, sample.ts has demo statements)
 6. Debtor list + dashboard (done; `debtors.ts` pure + tested, reminders return a draft only)
-7. AI lease extraction (Featherless vision), approve before save, PostHog LLM analytics
+7. AI lease extraction (done; `src/server/ai/`: Featherless vision via fetch, `$ai_generation` events to PostHog, parsing pure + tested; /leases/import)
 8. Nice-to-have: Apify market rent comparison
 
 Added on request: find repairers after a maintenance request (`src/server/maintenance/`).

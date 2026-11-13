@@ -18,7 +18,12 @@ import { getOrgId } from "@/server/org";
 
 export const dynamic = "force-dynamic";
 
-export default async function LeasesPage() {
+export default async function LeasesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ created?: string }>;
+}) {
+  const { created } = await searchParams;
   const organizationId = await getOrgId();
   const leases = await db.query.lease.findMany({
     where: eq(lease.organizationId, organizationId),
@@ -36,7 +41,16 @@ export default async function LeasesPage() {
         title="Leases"
         description={`${leases.length} leases · ${formatMoney(monthly)} expected per month (rent + service charges)`}
         action={{ href: "/leases/new", label: "New lease" }}
+        secondaryAction={{ href: "/leases/import", label: "Import with AI" }}
       />
+      {created && (
+        <p
+          role="status"
+          className="mb-4 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-sm text-green-900 dark:border-green-800 dark:bg-green-950 dark:text-green-200"
+        >
+          Lease saved. Variable symbol for payments: <span className="font-mono">{created}</span>
+        </p>
+      )}
       <Table>
         <TableHeader>
           <TableRow>

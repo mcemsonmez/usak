@@ -5,10 +5,12 @@ export function PageHeader({
   title,
   description,
   action,
+  secondaryAction,
 }: {
   title: string;
   description?: React.ReactNode;
   action?: { href: string; label: string };
+  secondaryAction?: { href: string; label: string };
 }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
@@ -16,11 +18,18 @@ export function PageHeader({
         <h1 className="text-2xl font-semibold">{title}</h1>
         {description && <p className="text-muted-foreground text-sm">{description}</p>}
       </div>
-      {action && (
-        <Button asChild>
-          <Link href={action.href}>{action.label}</Link>
-        </Button>
-      )}
+      <div className="flex gap-2">
+        {secondaryAction && (
+          <Button asChild variant="outline">
+            <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
+          </Button>
+        )}
+        {action && (
+          <Button asChild>
+            <Link href={action.href}>{action.label}</Link>
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
