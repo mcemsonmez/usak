@@ -98,3 +98,11 @@ Files used are in this folder. Desktop browser, about 15 minutes.
 | 10.1 | `pnpm db:seed` | Demo data back to the start for the real presentation |
 
 If something fails: note the step number and what you saw.
+
+## Last run: 13 Nov 2026 (production build)
+
+All steps passed. Found and fixed during the run:
+- Add unit rejected decimal areas ("47,5"); now accepted and rounded to whole m²
+- After an import the drop area still showed the old file; it now clears
+- Properties without units showed an empty table; now shows "No units yet"
+- 30-day chart started its axis at zero; now zooms to the data

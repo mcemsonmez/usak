@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, FileSpreadsheet, UploadCloud } from "lucide-react";
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/dates";
 import { formatMoney } from "@/lib/money";
@@ -24,6 +24,11 @@ export function ImportDropzone() {
   const [over, setOver] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const s = state?.summary;
+
+  // React resets the form (and the file input) after the action; keep the drop area in sync.
+  useEffect(() => {
+    if (state) setFile(null);
+  }, [state]);
 
   const choose = (f: File | undefined) => {
     if (!f || !input.current) return;
