@@ -97,6 +97,8 @@ CSS/SVG use the raw vars (`var(--good)`, `var(--border)`), not `--color-*` (thos
 - Motion respects reduced motion everywhere; no transition-all.
 
 ## Rules
+- Desktop web first. Mobile/touch is out of scope for now: don't spend time on phone layouts or
+  touch-only behaviour unless asked (keep what already works).
 - Speed over completeness: build the smallest thing that demos well. Ask before adding scope.
 - Single demo organization; keep `organizationId` on tables so multi-tenancy can come later.
 - Money is stored as integers in minor units (cents/haléř), never floats.
