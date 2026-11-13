@@ -27,7 +27,7 @@ export function StatTile({
     >
       <span
         aria-hidden
-        className="bg-lime/0 group-hover:bg-lime/10 absolute -top-12 -right-12 size-32 rounded-full blur-2xl transition-colors duration-500"
+        className="bg-brand/0 group-hover:bg-brand/10 absolute -top-12 -right-12 size-32 rounded-full blur-2xl transition-colors duration-500"
       />
       <span className="text-muted-foreground flex items-center justify-between gap-2 text-sm">
         {label}

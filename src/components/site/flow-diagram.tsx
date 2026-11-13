@@ -49,15 +49,7 @@ export function FlowDiagram() {
           </circle>
         ))}
       </g>
-      <rect
-        x="10"
-        y="125"
-        width="140"
-        height="70"
-        rx="12"
-        fill="white"
-        stroke="var(--border)"
-      />
+      <rect x="10" y="125" width="140" height="70" rx="12" fill="white" stroke="var(--border)" />
       <text
         x="80"
         y="155"

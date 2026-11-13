@@ -5,20 +5,29 @@ import { Button } from "@/components/ui/button";
 import { createUnit } from "@/server/actions/properties";
 import { Field, FormError } from "./field";
 
-export function UnitForm({ propertyId }: { propertyId: string }) {
+export function UnitForm({
+  propertyId,
+  onSuccess,
+}: {
+  propertyId: string;
+  onSuccess?: () => void;
+}) {
   const [state, action, pending] = useActionState(createUnit.bind(null, propertyId), undefined);
   const formRef = useRef<HTMLFormElement>(null);
   const e = state?.fieldErrors;
   const v = state?.values;
 
   useEffect(() => {
-    if (state && !state.error && !state.fieldErrors) formRef.current?.reset();
-  }, [state]);
+    if (state && !state.error && !state.fieldErrors) {
+      formRef.current?.reset();
+      onSuccess?.();
+    }
+  }, [state, onSuccess]);
 
   return (
     <form ref={formRef} action={action} className="grid gap-3">
       <FormError error={state?.error} />
-      <div className="grid gap-3 sm:grid-cols-[2fr_1fr_1fr_auto] sm:items-end">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="Unit label"
           name="label"
@@ -40,7 +49,7 @@ export function UnitForm({ propertyId }: { propertyId: string }) {
           inputMode="numeric"
           errors={e?.areaM2}
         />
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending} className="sm:col-span-2">
           {pending ? "Adding…" : "Add unit"}
         </Button>
       </div>

@@ -6,18 +6,27 @@ import { CATEGORY_OPTIONS } from "@/lib/maintenance";
 import { createMaintenanceRequest } from "@/server/actions/maintenance";
 import { Field, FormError, SelectField } from "./field";
 
-export function MaintenanceRequestForm({ units }: { units: { value: string; label: string }[] }) {
+export function MaintenanceRequestForm({
+  units,
+  onSuccess,
+}: {
+  units: { value: string; label: string }[];
+  onSuccess?: () => void;
+}) {
   const [state, action, pending] = useActionState(createMaintenanceRequest, undefined);
   const ref = useRef<HTMLFormElement>(null);
   const e = state?.fieldErrors;
   const v = state?.values;
   useEffect(() => {
-    if (state && !state.error && !state.fieldErrors) ref.current?.reset();
-  }, [state]);
+    if (state && !state.error && !state.fieldErrors) {
+      ref.current?.reset();
+      onSuccess?.();
+    }
+  }, [state, onSuccess]);
   return (
     <form ref={ref} action={action} className="grid gap-3">
       <FormError error={state?.error} />
-      <div className="grid gap-3 sm:grid-cols-[1fr_180px]">
+      <div className="grid gap-3 sm:grid-cols-[1fr_160px]">
         <SelectField
           label="Unit"
           name="unitId"

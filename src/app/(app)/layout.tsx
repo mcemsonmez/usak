@@ -1,4 +1,5 @@
 import { and, count, eq } from "drizzle-orm";
+import { cookies } from "next/headers";
 import { AppSidebar } from "@/components/app/app-sidebar";
 import { SiteHeader } from "@/components/app/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -10,7 +11,14 @@ import { getOrgId } from "@/server/org";
 
 export const dynamic = "force-dynamic";
 
-export default async function AppLayout({ children }: { children: React.ReactNode }) {
+export default async function AppLayout({
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
+  const theme = (await cookies()).get("theme")?.value === "light" ? "light" : "dark";
   const organizationId = await getOrgId();
   const [debtors, [review], [repairs]] = await Promise.all([
     loadDebtorRows(organizationId),
@@ -39,10 +47,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <SidebarProvider>
         <AppSidebar counts={{ debtors: debtors.length, review: review.n, repairs: repairs.n }} />
         <SidebarInset className="min-w-0">
-          <SiteHeader />
+          <SiteHeader theme={theme} />
           <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
             {children}
           </div>
+          {modal}
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>

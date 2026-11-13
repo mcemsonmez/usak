@@ -1,13 +1,13 @@
 import { and, asc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { UnitForm } from "@/components/forms/unit-form";
+import { AddUnitButton } from "@/components/forms/add-unit-button";
 import { LeaseBadge } from "@/components/lease-badge";
 import { MarketRentRow } from "@/components/market-rent-row";
 import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -46,6 +46,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
       <Card>
         <CardHeader>
           <CardTitle>Units</CardTitle>
+          <CardAction>
+            <AddUnitButton propertyId={p.id} />
+          </CardAction>
         </CardHeader>
         <CardContent className="grid gap-6">
           <Table>
@@ -102,7 +105,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               })}
             </TableBody>
           </Table>
-          <UnitForm propertyId={p.id} />
         </CardContent>
       </Card>
     </>

@@ -88,7 +88,7 @@ export function AppSidebar({ counts }: { counts: SidebarCounts }) {
                     <SidebarMenuItem key={item.href}>
                       <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
                         <Link href={item.href} aria-current={isActive ? "page" : undefined}>
-                          <item.icon className={isActive ? "text-lime" : undefined} />
+                          <item.icon className={isActive ? "text-brand" : undefined} />
                           <span>{item.label}</span>
                         </Link>
                       </SidebarMenuButton>

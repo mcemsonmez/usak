@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { and, eq, inArray, isNotNull, ne, sql } from "drizzle-orm";
 import type { db as Db } from "@/db";
 import { bankTransaction, charge, lease, paymentAllocation } from "@/db/schema";
-import { type CsvError, normalizeVs, parseBankCsv } from "./csv";
+import { type CsvError, normalizeVs, parseBankCsv, type StatementInfo } from "./csv";
 import {
   applyToContext,
   type MatchContext,
@@ -16,6 +16,7 @@ import {
 type Database = typeof Db;
 
 export type ImportSummary = {
+  statement: StatementInfo;
   imported: number;
   duplicates: number;
   errors: CsvError[];
@@ -128,8 +129,8 @@ export async function importBankCsv(
   organizationId: string,
   text: string,
 ): Promise<ImportSummary> {
-  const { transactions, errors } = parseBankCsv(text);
-  const summary: ImportSummary = { imported: 0, duplicates: 0, errors, byStatus: {} };
+  const { transactions, errors, statement } = parseBankCsv(text);
+  const summary: ImportSummary = { statement, imported: 0, duplicates: 0, errors, byStatus: {} };
   if (transactions.length === 0) return summary;
 
   const importBatchId = randomUUID();

@@ -12,7 +12,7 @@ Status: all 9 steps done. Demo script in README. Reset demo data with `pnpm db:s
 2. Schema + seed data (done; schema in `src/db/schema.ts`, seed in `src/db/seed.ts`)
 3. Record pages: properties, units, tenants, leases (done)
 4. Monthly rent charges (done; `src/server/billing/charges.ts` is pure + tested, `generate.ts` writes to DB)
-5. Bank CSV import + matching (done; `src/server/bank/`: csv.ts + matching.ts are pure + tested, import.ts writes to DB, sample.ts has demo statements)
+5. Bank CSV import + matching (done; Fio export format with account header and bank-code column; `src/server/bank/`: csv.ts + matching.ts are pure + tested, import.ts writes to DB, sample.ts has demo statements)
 6. Debtor list + dashboard (done; `debtors.ts` pure + tested, reminders return a draft only)
 7. AI lease extraction (done; `src/server/ai/`: Featherless vision via fetch, `$ai_generation` events to PostHog, parsing pure + tested; /leases/import)
 8. Apify (done): market rent via RAG Web Browser (`src/server/apify/market-rent.ts`, on property pages);
@@ -75,7 +75,9 @@ restore with `npx skills experimental_install`):
 The app lives in `src/app/(app)` with the sidebar layout; the dashboard is `/dashboard`.
 
 ## Design system
-Dark app (shadcn dashboard-01 style), light landing, one lime accent. Tokens in `src/app/globals.css`:
+Dark app by default with a light theme toggle (cookie `theme=light` adds `.theme-light` on <html>),
+light landing, one lime accent. `--brand` is lime on dark and deep olive on light: use `text-brand`
+for text/icons, `bg-lime` only for filled buttons with ink text. Tokens in `src/app/globals.css`:
 `:root` holds the dark values, `.theme-light` (on the landing page root) the light ones. In custom
 CSS/SVG use the raw vars (`var(--good)`, `var(--border)`), not `--color-*` (those resolve at :root).
 - App shell (`src/app/(app)/layout.tsx`): shadcn Sidebar (inset, collapses to icons with ⌘B) with
@@ -83,6 +85,8 @@ CSS/SVG use the raw vars (`var(--good)`, `var(--border)`), not `--color-*` (thos
   (`src/components/app`). `template.tsx` animates every page in.
 - Dashboard: "Who owes?" board, KPI cards with trend chips, expected-vs-collected area chart
   (Recharts via shadcn chart), occupancy radial, activity timeline; sections stagger in (Motion).
+- Add forms open as modals: intercepting routes in `src/app/(app)/@modal/(.)…/new` (direct URLs still
+  render full pages); inline adds (unit, maintenance issue) use `FormDialog`.
 - Geist for text, Geist Mono for money (`font-mono tabular-nums`).
 - Status colours, one meaning each: `good` (paid, money in), `bad` (overdue, review), `warn`
   (partial, ending soon). Lime is brand only (active nav, Quick create, chart "collected").

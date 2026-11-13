@@ -177,17 +177,17 @@ export default async function Dashboard() {
       <StaggerItem>
         <section
           aria-labelledby="answer"
-          className="from-lime/[0.13] via-card to-card border-lime/20 relative isolate grid overflow-hidden rounded-2xl border bg-gradient-to-br lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
+          className="from-brand-soft via-card to-card border-brand/25 relative isolate grid overflow-hidden rounded-2xl border bg-gradient-to-br lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]"
         >
           <div
             aria-hidden
-            className="bg-lime/25 absolute -top-24 -left-20 -z-10 size-72 rounded-full blur-[100px]"
+            className="bg-brand/20 absolute -top-24 -left-20 -z-10 size-72 rounded-full blur-[100px]"
           />
           <div className="grid content-between gap-6 p-6 sm:p-8">
             <span className="text-muted-foreground flex items-center gap-2 text-xs font-medium">
               <span
                 aria-hidden
-                className="live-dot text-lime relative inline-flex size-2 rounded-full bg-current"
+                className="live-dot text-brand relative inline-flex size-2 rounded-full bg-current"
               />
               Live from your bank imports
             </span>
@@ -224,8 +224,8 @@ export default async function Dashboard() {
                         </p>
                       </div>
                       <div className="flex items-center gap-3 sm:justify-end">
-                        <ReminderBadge level={d.level} onDark />
-                        <span className="text-lime font-mono text-3xl font-semibold tracking-tight tabular-nums">
+                        <ReminderBadge level={d.level} />
+                        <span className="text-brand font-mono text-3xl font-semibold tracking-tight tabular-nums">
                           <AnimatedNumber kind="money" value={d.overdue} />
                         </span>
                         <ArrowUpRight

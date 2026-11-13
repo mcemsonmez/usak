@@ -52,7 +52,7 @@ export default async function TenantsPage() {
                   <TableCell>
                     <span className="flex items-center gap-3">
                       <Avatar className="size-8">
-                        <AvatarFallback className="bg-lime/15 text-lime text-xs font-semibold">
+                        <AvatarFallback className="bg-brand-soft text-brand text-xs font-semibold">
                           {t.fullName
                             .split(" ")
                             .map((w) => w[0])

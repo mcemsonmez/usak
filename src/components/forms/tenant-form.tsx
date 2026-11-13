@@ -10,7 +10,7 @@ export function TenantForm() {
   const e = state?.fieldErrors;
   const v = state?.values;
   return (
-    <form action={action} className="grid max-w-lg gap-4">
+    <form action={action} className="grid gap-4">
       <FormError error={state?.error} />
       <Field
         label="Full name / company"

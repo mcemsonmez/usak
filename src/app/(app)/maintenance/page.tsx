@@ -1,5 +1,5 @@
 import { desc, eq } from "drizzle-orm";
-import { MaintenanceRequestForm } from "@/components/forms/maintenance-request-form";
+import { ReportIssueButton } from "@/components/forms/report-issue-button";
 import { PageHeader } from "@/components/page-header";
 import { RepairerFinder } from "@/components/repairer-finder";
 import { Badge } from "@/components/ui/badge";
@@ -40,18 +40,12 @@ export default async function MaintenancePage() {
 
   return (
     <>
-      <PageHeader title="Maintenance" description="Track issues and find a repairer nearby." />
+      <PageHeader
+        title="Maintenance"
+        description="Track issues and find a repairer nearby."
+        actions={<ReportIssueButton units={unitOptions} />}
+      />
       <div className="grid gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Report an issue</CardTitle>
-            <CardDescription>Log a problem a tenant reported.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <MaintenanceRequestForm units={unitOptions} />
-          </CardContent>
-        </Card>
-
         <div className="grid gap-4 lg:grid-cols-3">
           {columns.map((col) => (
             <section

@@ -20,7 +20,7 @@ export function LeaseForm({
   const e = state?.fieldErrors;
   const v = state?.values;
   return (
-    <form action={action} className="grid max-w-2xl gap-4">
+    <form action={action} className="grid gap-4">
       <FormError error={state?.error} />
       <div className="grid gap-4 sm:grid-cols-2">
         <SelectField
@@ -85,9 +85,6 @@ export function LeaseForm({
           errors={e?.dueDay}
         />
       </div>
-      <p className="text-muted-foreground text-xs">
-        A unique variable symbol (payment reference) is generated automatically.
-      </p>
       <Button type="submit" disabled={pending} className="w-fit">
         {pending ? "Saving…" : "Create lease"}
       </Button>

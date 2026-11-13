@@ -77,3 +77,53 @@ describe("parseBankCsv", () => {
     expect(parseBankCsv("Foo;Bar\n1;2").errors[0].message).toMatch(/Missing column/);
   });
 });
+
+describe("Fio export format", () => {
+  const fio = [
+    '"accountId";"2001987654"',
+    '"bankId";"2010"',
+    '"currency";"CZK"',
+    '"openingBalance";"598731,40"',
+    '"closingBalance";"620100,00"',
+    '"dateStart";"01.11.2026"',
+    '"dateEnd";"12.11.2026"',
+    "",
+    '"ID pohybu";"Datum";"Objem";"Měna";"Protiúčet";"Kód banky";"Název banky";"Název protiúčtu";"KS";"VS";"SS";"Zpráva pro příjemce";"Typ"',
+    '"26000001";"03.11.2026";"21700,00";"CZK";"123456789";"0800";"Česká spořitelna, a.s.";"Jana Nováková";"0308";"2025001";"";"Najem 11/2026";"Bezhotovostní příjem"',
+    '"26000002";"09.11.2026";"-2420,00";"CZK";"1234500987";"0100";"Komerční banka, a.s.";"Instalatérství Novák";"";"";"";"Faktura 2026-118";"Bezhotovostní platba"',
+    '"26000003";"xx";"1,00";"CZK";"";"";"";"";"";"";"";"";""',
+  ].join("\n");
+
+  it("skips the account header and reads the statement info", () => {
+    const { statement, transactions } = parseBankCsv(fio);
+    expect(statement).toEqual({
+      account: "2001987654/2010",
+      currency: "CZK",
+      from: "2026-11-01",
+      to: "2026-11-12",
+      openingBalance: 59_873_140,
+      closingBalance: 62_010_000,
+    });
+    expect(transactions).toHaveLength(2);
+  });
+
+  it("joins the counter account with its bank code", () => {
+    const [jana, invoice] = parseBankCsv(fio).transactions;
+    expect(jana).toMatchObject({
+      counterAccount: "123456789/0800",
+      variableSymbol: "2025001",
+      amount: 2_170_000,
+    });
+    expect(invoice).toMatchObject({ counterAccount: "1234500987/0100", amount: -242_000 });
+  });
+
+  it("reports errors with the real file line", () => {
+    expect(parseBankCsv(fio).errors).toEqual([{ line: 12, message: 'Invalid date "xx"' }]);
+  });
+
+  it("uses the bank's movement id for duplicates", () => {
+    const a = parseBankCsv(fio).transactions[0].importHash;
+    const changedMessage = fio.replace("Najem 11/2026", "Najem listopad");
+    expect(parseBankCsv(changedMessage).transactions[0].importHash).toBe(a);
+  });
+});

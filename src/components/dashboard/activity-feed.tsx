@@ -20,7 +20,7 @@ const icons = { payment: Landmark, repair: Wrench, lease: FileText };
 const tones = {
   payment: "bg-good-soft text-good",
   repair: "bg-warn-soft text-warn-ink",
-  lease: "bg-lime/15 text-lime",
+  lease: "bg-brand-soft text-brand",
 };
 
 export function ActivityFeed({ items }: { items: ActivityItem[] }) {

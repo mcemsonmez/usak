@@ -60,6 +60,8 @@
   --color-warn-soft: var(--warn-soft);
   --color-warn-ink: var(--warn-ink);
   --color-track: var(--track);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
 }
 
 :root {
@@ -99,6 +101,8 @@
   --warn-soft: oklch(0.4 0.09 75 / 0.45);
   --warn-ink: oklch(0.86 0.13 82);
   --track: oklch(1 0 0 / 8%);
+  --brand: oklch(0.93 0.2 125);
+  --brand-soft: oklch(0.93 0.2 125 / 0.14);
   --chart-1: oklch(0.86 0.21 128);
   --chart-2: oklch(0.7 0.012 286);
   --chart-3: oklch(0.72 0.18 22);
@@ -137,6 +141,19 @@
   --warn-soft: oklch(0.96 0.06 85);
   --warn-ink: oklch(0.45 0.11 65);
   --track: oklch(0.93 0.003 286);
+  --brand: oklch(0.5 0.14 132);
+  --brand-soft: oklch(0.93 0.2 125 / 0.35);
+  --sidebar: oklch(0.955 0.004 286);
+  --sidebar-foreground: oklch(0.3 0.01 286);
+  --sidebar-primary: oklch(0.16 0.004 286);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.91 0.006 286);
+  --sidebar-accent-foreground: oklch(0.16 0.004 286);
+  --sidebar-border: oklch(0.9 0.004 286);
+  --sidebar-ring: oklch(0.5 0.14 132);
+  --chart-1: oklch(0.6 0.17 132);
+  --chart-2: oklch(0.55 0.012 286);
+  --chart-3: oklch(0.58 0.21 25);
 }
 
 @layer base {

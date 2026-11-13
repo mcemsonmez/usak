@@ -14,6 +14,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { CommandMenu } from "./command-menu";
+import { ThemeToggle } from "./theme-toggle";
 
 const LABELS: Record<string, string> = {
   dashboard: "Dashboard",
@@ -28,7 +29,7 @@ const LABELS: Record<string, string> = {
   import: "AI import",
 };
 
-export function SiteHeader() {
+export function SiteHeader({ theme }: { theme: "dark" | "light" }) {
   const parts = usePathname().split("/").filter(Boolean);
   const crumbs = parts.map((p, i) => ({
     href: "/" + parts.slice(0, i + 1).join("/"),
@@ -59,10 +60,11 @@ export function SiteHeader() {
       </Breadcrumb>
       <div className="ml-auto flex flex-1 items-center justify-end gap-3">
         <CommandMenu />
+        <ThemeToggle initial={theme} />
         <span className="text-muted-foreground hidden items-center gap-2 text-xs lg:flex">
           <span
             aria-hidden
-            className="live-dot text-lime relative inline-flex size-2 rounded-full bg-current"
+            className="live-dot text-brand relative inline-flex size-2 rounded-full bg-current"
           />
           Live
         </span>
