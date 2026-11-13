@@ -23,7 +23,7 @@ export function RepairerFinder({ requestId }: { requestId: string }) {
         <input type="hidden" name="requestId" value={requestId} />
         <Button type="submit" size="sm" variant="outline" disabled={pending}>
           {pending
-            ? "Searching Google Maps…"
+            ? "Searching Google Maps (~30 s)…"
             : state?.repairers
               ? "Search again"
               : "Find repairers"}
