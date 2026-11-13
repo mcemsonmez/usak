@@ -285,3 +285,27 @@ td,
     display: none;
   }
 }
+
+/* Smart tools: a slow light running along the card border. */
+@keyframes border-run {
+  to {
+    background-position: 200% 0;
+  }
+}
+.smart-border {
+  background: linear-gradient(
+    110deg,
+    var(--border) 0%,
+    var(--border) 35%,
+    var(--brand) 50%,
+    var(--border) 65%,
+    var(--border) 100%
+  );
+  background-size: 200% 100%;
+  animation: border-run 4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .smart-border {
+    animation: none;
+  }
+}

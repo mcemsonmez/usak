@@ -16,6 +16,7 @@ export type NavItem = {
   label: string;
   icon: LucideIcon;
   badgeKey?: "debtors" | "review" | "repairs";
+  ai?: boolean;
 };
 
 export const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
@@ -40,7 +41,7 @@ export const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
     label: "Operations",
     items: [
       { href: "/maintenance", label: "Maintenance", icon: Wrench, badgeKey: "repairs" },
-      { href: "/leases/import", label: "AI lease import", icon: Bot },
+      { href: "/leases/import", label: "AI lease import", icon: Bot, ai: true },
     ],
   },
 ];

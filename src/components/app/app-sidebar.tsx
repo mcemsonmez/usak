@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, ChevronsUpDown, Plus } from "lucide-react";
+import { ArrowUpRight, ChevronsUpDown, Plus, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -92,6 +92,12 @@ export function AppSidebar({ counts }: { counts: SidebarCounts }) {
                           <span>{item.label}</span>
                         </Link>
                       </SidebarMenuButton>
+                      {item.ai && (
+                        <SidebarMenuBadge className="bg-brand-soft text-brand gap-0.5 text-[10px]">
+                          <Sparkles className="size-2.5" aria-hidden />
+                          AI
+                        </SidebarMenuBadge>
+                      )}
                       {count > 0 && (
                         <SidebarMenuBadge
                           className={

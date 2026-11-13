@@ -6,6 +6,7 @@ import { type ActivityItem, ActivityFeed } from "@/components/dashboard/activity
 import { type CollectionPoint, CollectionsChart } from "@/components/dashboard/collections-chart";
 import { Stagger, StaggerItem } from "@/components/dashboard/motion";
 import { OccupancyChart } from "@/components/dashboard/occupancy-chart";
+import { SmartTools } from "@/components/dashboard/smart-tools";
 import { ReminderBadge } from "@/components/reminder-badge";
 import { StatTile } from "@/components/stat-tile";
 import { Badge } from "@/components/ui/badge";
@@ -242,10 +243,15 @@ export default async function Dashboard() {
         </section>
       </StaggerItem>
 
+      <StaggerItem>
+        <SmartTools />
+      </StaggerItem>
+
       <section aria-label="Key figures" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StaggerItem>
           <StatTile
             label="Collected this month"
+            hint="Money from bank imports matched to this month's rent and service charges."
             value={<AnimatedNumber kind="money" value={thisMonth.collected} />}
             detail={
               thisMonth.billed
@@ -267,6 +273,7 @@ export default async function Dashboard() {
         <StaggerItem>
           <StatTile
             label="Overdue"
+            hint="Unpaid charges past their due date, across all months."
             value={<AnimatedNumber kind="money" value={overdueTotal} />}
             detail={`${debtors.length} tenant${debtors.length === 1 ? "" : "s"} late`}
             chip={debtors.length ? { text: `${debtors.length} late`, up: false } : undefined}
@@ -277,6 +284,7 @@ export default async function Dashboard() {
         <StaggerItem>
           <StatTile
             label="Payments to review"
+            hint="Incoming payments the matcher could not place, usually a wrong variable symbol."
             value={<AnimatedNumber value={review.n} />}
             detail="Could not be matched automatically"
             href="/payments"
@@ -286,6 +294,7 @@ export default async function Dashboard() {
         <StaggerItem>
           <StatTile
             label="New repairs"
+            hint="Maintenance requests nobody has started yet."
             value={<AnimatedNumber value={newRepairs} />}
             detail="Waiting for a repairer"
             href="/maintenance"

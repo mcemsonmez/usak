@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Download, Search } from "lucide-react";
+import { ArrowRight, Download, Search, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -63,7 +63,7 @@ export function CommandMenu() {
             <CommandGroup heading="Actions">
               {QUICK_ACTIONS.map((a) => (
                 <CommandItem key={a.label} onSelect={() => go(a.href)}>
-                  <ArrowRight />
+                  {a.label.includes("AI") ? <Sparkles className="text-brand" /> : <ArrowRight />}
                   {a.label}
                 </CommandItem>
               ))}

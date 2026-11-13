@@ -5,6 +5,7 @@ import { ImportDropzone } from "@/components/forms/import-dropzone";
 import { ManualMatchForm } from "@/components/forms/manual-match-form";
 import { MatchStatusBadge } from "@/components/match-status-badge";
 import { PageHeader } from "@/components/page-header";
+import { SmartBadge } from "@/components/smart-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -127,7 +128,13 @@ export default async function PaymentsPage({
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <Card>
             <CardHeader>
-              <CardTitle>Import a bank statement</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                Import a bank statement
+                <SmartBadge
+                  kind="auto"
+                  tip="Every incoming payment is matched to its lease automatically: by variable symbol, then by the payer's usual account and amount."
+                />
+              </CardTitle>
               <CardDescription>
                 Export the movements as CSV from internet banking. Importing the same file twice is
                 safe.

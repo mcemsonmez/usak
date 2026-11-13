@@ -1,6 +1,10 @@
 import { desc, eq } from "drizzle-orm";
 import { LeaseBadge } from "@/components/lease-badge";
+import { InfoTip } from "@/components/info-tip";
 import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -41,7 +45,15 @@ export default async function LeasesPage({
         title="Leases"
         description={`${leases.length} leases · ${formatMoney(monthly)} expected per month (rent + service charges)`}
         action={{ href: "/leases/new", label: "New lease" }}
-        secondaryAction={{ href: "/leases/import", label: "Import with AI" }}
+        actions={
+          <InfoTip tip="Upload a photo of a signed lease. An AI vision model fills in the tenant, unit, dates and amounts; you approve before saving.">
+            <Button asChild variant="outline">
+              <Link href="/leases/import">
+                <Sparkles className="text-brand" /> Import with AI
+              </Link>
+            </Button>
+          </InfoTip>
+        }
       />
       {created && (
         <p

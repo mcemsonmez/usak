@@ -1,6 +1,8 @@
 "use client";
 
 import { useActionState, useState, useTransition } from "react";
+import { Search } from "lucide-react";
+import { InfoTip } from "@/components/info-tip";
 import { Button } from "@/components/ui/button";
 import { contactRepairerAction, findRepairersAction } from "@/server/actions/maintenance";
 import type { ContactResult } from "@/server/maintenance/contact-repairer";
@@ -21,13 +23,16 @@ export function RepairerFinder({ requestId }: { requestId: string }) {
     <div className="grid gap-3">
       <form action={action}>
         <input type="hidden" name="requestId" value={requestId} />
-        <Button type="submit" size="sm" variant="outline" disabled={pending}>
-          {pending
-            ? "Searching Google Maps (~30 s)…"
-            : state?.repairers
-              ? "Search again"
-              : "Find repairers"}
-        </Button>
+        <InfoTip tip="Searches Google Maps near the property for this kind of repair, ranks by rating and reviews. Contact drafts a message; nothing is sent.">
+          <Button type="submit" size="sm" variant="outline" disabled={pending}>
+            <Search className="text-warn-ink" />
+            {pending
+              ? "Searching Google Maps (~30 s)…"
+              : state?.repairers
+                ? "Search again"
+                : "Find repairers"}
+          </Button>
+        </InfoTip>
       </form>
       {state?.error && <p className="text-destructive text-sm">{state.error}</p>}
       {state?.repairers && (

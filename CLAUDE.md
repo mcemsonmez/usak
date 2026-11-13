@@ -90,6 +90,10 @@ CSS/SVG use the raw vars (`var(--good)`, `var(--border)`), not `--color-*` (thos
 - Geist for text, Geist Mono for money (`font-mono tabular-nums`).
 - Status colours, one meaning each: `good` (paid, money in), `bad` (overdue, review), `warn`
   (partial, ending soon). Lime is brand only (active nav, Quick create, chart "collected").
+- Smart features are labelled honestly with `SmartBadge`: `ai` (a model: lease reading), `auto`
+  (rules: payment matching), `live` (web lookup: market rent, repairers). Dashboard "Smart tools"
+  section lists them. Explanations on hover/focus via `InfoTip` / `InfoDot` (status badges, KPI
+  labels, smart buttons). Keep tooltip copy one or two short sentences.
 - Motion respects reduced motion everywhere; no transition-all.
 
 ## Rules

@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import { InfoTip } from "@/components/info-tip";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import type { ReminderDraft } from "@/server/billing/reminders";
@@ -21,14 +22,16 @@ export function DebtorRow({
       <TableRow>
         {cells}
         <TableCell className="text-right">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-          >
-            {open ? "Hide reminder" : "Draft reminder"}
-          </Button>
+          <InfoTip tip="A ready reminder in the tone that fits how late the payment is: polite at 3 days, serious at 10, final notice at 20. Not sent automatically.">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+            >
+              {open ? "Hide reminder" : "Draft reminder"}
+            </Button>
+          </InfoTip>
         </TableCell>
       </TableRow>
       {open && (

@@ -1,6 +1,7 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { InfoDot } from "./info-tip";
 
 const tones = { none: "", good: "text-good", bad: "text-bad", warn: "text-warn-ink" } as const;
 
@@ -12,6 +13,7 @@ export function StatTile({
   href,
   tone = "none",
   chip,
+  hint,
 }: {
   label: string;
   value: React.ReactNode;
@@ -19,6 +21,7 @@ export function StatTile({
   href: string;
   tone?: keyof typeof tones;
   chip?: { text: string; up: boolean };
+  hint?: string;
 }) {
   return (
     <Link
@@ -30,9 +33,12 @@ export function StatTile({
         className="bg-brand/0 group-hover:bg-brand/10 absolute -top-12 -right-12 size-32 rounded-full blur-2xl transition-colors duration-500"
       />
       <span className="text-muted-foreground flex items-center justify-between gap-2 text-sm">
-        {label}
+        <span className="flex items-center gap-1.5">
+          {label}
+          {hint && <InfoDot tip={hint} />}
+        </span>
         {chip && (
-          <span className="flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-xs font-medium">
+          <span className="flex shrink-0 items-center gap-1 rounded-md border px-1.5 py-0.5 text-xs font-medium whitespace-nowrap">
             {chip.up ? (
               <TrendingUp className="size-3" aria-hidden />
             ) : (

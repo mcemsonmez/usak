@@ -1,6 +1,7 @@
 import { asc, eq } from "drizzle-orm";
 import { LeaseImport } from "@/components/forms/lease-import";
 import { PageHeader } from "@/components/page-header";
+import { SmartBadge } from "@/components/smart-badge";
 import { db } from "@/db";
 import { property, tenant } from "@/db/schema";
 import { getOrgId } from "@/server/org";
@@ -35,6 +36,12 @@ export default async function LeaseImportPage() {
     <>
       <PageHeader
         title="Import lease with AI"
+        actions={
+          <SmartBadge
+            kind="ai"
+            tip="An AI vision model reads the document. Nothing is saved until you approve the form."
+          />
+        }
         description="Upload a signed lease. A vision model reads it, you check the details, then it is saved."
       />
       <LeaseImport units={units} tenants={tenants} />

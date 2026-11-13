@@ -1,6 +1,8 @@
 "use client";
 
 import { Fragment, useActionState } from "react";
+import { Globe } from "lucide-react";
+import { InfoTip } from "@/components/info-tip";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { formatMoney } from "@/lib/money";
@@ -29,9 +31,12 @@ export function MarketRentRow({
         <TableCell className="text-right">
           <form action={action}>
             <input type="hidden" name="unitId" value={unitId} />
-            <Button type="submit" size="sm" variant="outline" disabled={pending}>
-              {pending ? "Searching listings (~30–60 s)…" : "Market rent"}
-            </Button>
+            <InfoTip tip="Searches live rental listings in this unit\'s district and compares the rent with the market median. Takes 30 to 60 seconds.">
+              <Button type="submit" size="sm" variant="outline" disabled={pending}>
+                <Globe className="text-warn-ink" />
+                {pending ? "Searching listings (~30–60 s)…" : "Market rent"}
+              </Button>
+            </InfoTip>
           </form>
         </TableCell>
       </TableRow>
