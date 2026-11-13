@@ -12,6 +12,7 @@ const links = [
   { href: "/charges", label: "Charges" },
   { href: "/payments", label: "Payments" },
   { href: "/debtors", label: "Debtors" },
+  { href: "/maintenance", label: "Maintenance" },
 ];
 
 export function Nav() {

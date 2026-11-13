@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { UnitForm } from "@/components/forms/unit-form";
 import { LeaseBadge } from "@/components/lease-badge";
+import { MarketRentRow } from "@/components/market-rent-row";
 import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -56,38 +57,47 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                 <TableHead>Tenant</TableHead>
                 <TableHead className="text-right">Rent</TableHead>
                 <TableHead>Lease</TableHead>
+                <TableHead />
               </TableRow>
             </TableHeader>
             <TableBody>
               {p.units.map((u) => {
                 const l = currentLease(u.leases, today);
                 return (
-                  <TableRow key={u.id}>
-                    <TableCell className="font-medium">{u.label}</TableCell>
-                    <TableCell>{u.rooms ?? "—"}</TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {u.areaM2 ? `${u.areaM2} m²` : "—"}
-                    </TableCell>
-                    <TableCell>
-                      {l?.tenant.fullName ?? <Badge variant="outline">Vacant</Badge>}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {l ? formatMoney(l.rentAmount) : "—"}
-                    </TableCell>
-                    <TableCell>
-                      {l ? (
-                        <LeaseBadge
-                          phase={leasePhase(l, today)}
-                          endDate={l.endDate}
-                          today={today}
-                        />
-                      ) : (
-                        <Button asChild size="sm" variant="outline">
-                          <Link href={`/leases/new?unit=${u.id}`}>New lease</Link>
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
+                  <MarketRentRow
+                    key={u.id}
+                    unitId={u.id}
+                    currentRent={l?.rentAmount ?? null}
+                    colSpan={7}
+                    cells={
+                      <>
+                        <TableCell className="font-medium">{u.label}</TableCell>
+                        <TableCell>{u.rooms ?? "—"}</TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {u.areaM2 ? `${u.areaM2} m²` : "—"}
+                        </TableCell>
+                        <TableCell>
+                          {l?.tenant.fullName ?? <Badge variant="outline">Vacant</Badge>}
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {l ? formatMoney(l.rentAmount) : "—"}
+                        </TableCell>
+                        <TableCell>
+                          {l ? (
+                            <LeaseBadge
+                              phase={leasePhase(l, today)}
+                              endDate={l.endDate}
+                              today={today}
+                            />
+                          ) : (
+                            <Button asChild size="sm" variant="outline">
+                              <Link href={`/leases/new?unit=${u.id}`}>New lease</Link>
+                            </Button>
+                          )}
+                        </TableCell>
+                      </>
+                    }
+                  />
                 );
               })}
             </TableBody>

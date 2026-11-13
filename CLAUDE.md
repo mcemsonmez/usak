@@ -5,7 +5,7 @@ AI-powered rental property management platform, similar to Grento.
 **This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
-Status: steps 1–7 done. Next: step 8 (Apify: market rent + repairers). Demo currency: CZK (Prague demo data).
+Status: steps 1–8 done. Next: step 9 (polish, demo script). Demo currency: CZK (Prague demo data).
 
 ## Steps
 1. Skeleton: Next.js 15, Tailwind, shadcn/ui, Postgres in Docker, Drizzle (done)
@@ -15,11 +15,13 @@ Status: steps 1–7 done. Next: step 8 (Apify: market rent + repairers). Demo cu
 5. Bank CSV import + matching (done; `src/server/bank/`: csv.ts + matching.ts are pure + tested, import.ts writes to DB, sample.ts has demo statements)
 6. Debtor list + dashboard (done; `debtors.ts` pure + tested, reminders return a draft only)
 7. AI lease extraction (done; `src/server/ai/`: Featherless vision via fetch, `$ai_generation` events to PostHog, parsing pure + tested; /leases/import)
-8. Nice-to-have: Apify market rent comparison
+8. Apify (done): market rent via RAG Web Browser (`src/server/apify/market-rent.ts`, on property pages);
+   repairers via Google Maps scraper on /maintenance (Czech + English search, ranked by category)
 
-Added on request: find repairers after a maintenance request (`src/server/maintenance/`).
-`findRepairers` uses the Apify Google Maps scraper; `contactRepairer` only returns the
-message that would be sent (email/SMS sending not implemented). Test route: `/api/repairers`.
+Find repairers (`src/server/maintenance/`): `findRepairers` uses the Apify Google Maps scraper;
+`contactRepairer` only returns the message that would be sent (email/SMS not implemented).
+Use district-level locations ("Praha 2, Czechia"); exact addresses return too few results.
+Dev routes: `/api/repairers`, `/api/market-rent`.
 9. Polish, demo script, deploy
 
 ## Stack (planned)
