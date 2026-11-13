@@ -46,7 +46,8 @@ export function UnitForm({
           label="Area (m²)"
           name="areaM2"
           defaultValue={v?.areaM2}
-          inputMode="numeric"
+          placeholder="52"
+          inputMode="decimal"
           errors={e?.areaM2}
         />
         <Button type="submit" disabled={pending} className="sm:col-span-2">

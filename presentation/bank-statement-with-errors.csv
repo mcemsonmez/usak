@@ -1,0 +1,10 @@
+"accountId";"2001987654"
+"bankId";"2010"
+"currency";"CZK"
+"dateStart";"01.11.2026"
+"dateEnd";"13.11.2026"
+
+"ID pohybu";"Datum";"Objem";"Měna";"Protiúčet";"Kód banky";"Název banky";"Název protiúčtu";"KS";"VS";"SS";"Zpráva pro příjemce";"Typ"
+"26990000001";"31.11.2026";"18500,00";"CZK";"123456789";"0800";"Česká spořitelna, a.s.";"Jana Nováková";"0308";"2025001";"";"Najem";"Bezhotovostní příjem"
+"26990000002";"05.11.2026";"osmnáct tisíc";"CZK";"2400112233";"2010";"Fio banka, a.s.";"Petr Svoboda";"0308";"2024002";"";"Najem";"Bezhotovostní příjem"
+"26990000003";"13.11.2026";"-99,00";"CZK";"";"";"";"";"";"";"";"Poplatek za výpis";"Platba kartou"

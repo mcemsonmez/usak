@@ -94,6 +94,10 @@ export function CollectionsChart({ data }: { data: CollectionPoint[] }) {
               tickLine={false}
               axisLine={false}
               width={56}
+              domain={[
+                (min: number) => Math.max(0, Math.floor((min * 0.85) / 10000) * 10000),
+                "auto",
+              ]}
               tickFormatter={(v: number) => `${Math.round(v / 1000)}k`}
             />
             <ChartTooltip

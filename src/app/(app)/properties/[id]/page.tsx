@@ -103,6 +103,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                   />
                 );
               })}
+              {p.units.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-muted-foreground py-10 text-center">
+                    No units yet. Use “Add unit” to add the flats, lofts or shops in this property.
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </CardContent>

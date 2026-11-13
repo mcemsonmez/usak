@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db } from "@/db";
 import { property, propertyType, unit } from "@/db/schema";
-import { fieldErrors, formToObject, type FormState } from "@/lib/form";
+import { areaField, fieldErrors, formToObject, type FormState } from "@/lib/form";
 import { getOrgId } from "@/server/org";
 
 const propertySchema = z.object({
@@ -31,12 +31,10 @@ export async function createProperty(_prev: FormState, formData: FormData): Prom
   redirect(`/properties/${created.id}`);
 }
 
-const optionalInt = z.coerce.number().int().positive("Must be a positive number").optional();
-
 const unitSchema = z.object({
   label: z.string({ error: "Required" }).min(1, "Required"),
   rooms: z.string().optional(),
-  areaM2: optionalInt,
+  areaM2: areaField,
 });
 
 export async function createUnit(

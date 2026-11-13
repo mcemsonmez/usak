@@ -36,3 +36,22 @@ export const moneyField = z.string().transform((v, ctx) => {
 });
 
 export const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use a date");
+
+/** Floor area as people type it: "52", "47,5", "47.5 m2", "52 m²". Stored as whole m². */
+export const areaField = z
+  .string()
+  .optional()
+  .transform((v, ctx) => {
+    if (!v) return undefined;
+    const n = Number(
+      v
+        .replace(/m2|m²|sqm/gi, "")
+        .replace(/\s/g, "")
+        .replace(",", "."),
+    );
+    if (!Number.isFinite(n) || n <= 0 || n > 10_000) {
+      ctx.addIssue({ code: "custom", message: "Enter the area in m², for example 52 or 47,5" });
+      return z.NEVER;
+    }
+    return Math.round(n);
+  });
