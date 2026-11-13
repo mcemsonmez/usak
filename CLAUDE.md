@@ -5,11 +5,11 @@ AI-powered rental property management platform, similar to Grento.
 **This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
-Status: step 1 (skeleton) done. Next: step 2 (schema + seed data).
+Status: steps 1–2 done. Next: step 3 (record pages). Demo currency: CZK (Prague demo data).
 
 ## Steps
 1. Skeleton: Next.js 15, Tailwind, shadcn/ui, Postgres in Docker, Drizzle (done)
-2. Schema + seed data
+2. Schema + seed data (done; schema in `src/db/schema.ts`, seed in `src/db/seed.ts`)
 3. Record pages: properties, units, tenants, leases
 4. Monthly rent charges (with tests)
 5. Bank CSV import + matching, partial payments, needs-review list (with tests)
@@ -73,7 +73,8 @@ as the nice-to-have. Keep product details out of README.
 - `pnpm db:up` / `pnpm db:down`: start/stop Postgres in Docker
 - `pnpm dev` / `pnpm lint` / `pnpm typecheck`
 - `pnpm db:generate` / `pnpm db:migrate` / `pnpm db:studio`
-- Later: `pnpm test`, `pnpm db:seed`
+- `pnpm db:seed`: wipe and reload demo data / `pnpm db:reset`: migrate + seed
+- Later: `pnpm test`
 
 ## Folder structure (planned)
 src/app (pages), src/server (business logic), src/db (schema), src/components

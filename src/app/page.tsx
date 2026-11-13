@@ -1,32 +1,55 @@
-import { sql } from "drizzle-orm";
+import { count } from "drizzle-orm";
 import { db } from "@/db";
+import { lease, maintenanceRequest, property, tenant, unit } from "@/db/schema";
 
 export const dynamic = "force-dynamic";
 
-async function dbStatus() {
-  try {
-    const [row] = await db.execute<{ version: string }>(sql`select version()`);
-    return { ok: true, detail: row.version.split(" ").slice(0, 2).join(" ") };
-  } catch (e) {
-    return { ok: false, detail: e instanceof Error ? e.message : "unknown error" };
-  }
+async function getCounts() {
+  const tables = { property, unit, tenant, lease, maintenanceRequest };
+  const entries = await Promise.all(
+    Object.entries(tables).map(async ([name, table]) => {
+      const [row] = await db.select({ n: count() }).from(table);
+      return [name, row.n] as const;
+    }),
+  );
+  return Object.fromEntries(entries) as Record<keyof typeof tables, number>;
 }
 
 export default async function Home() {
-  const status = await dbStatus();
+  let counts: Awaited<ReturnType<typeof getCounts>> | null = null;
+  let error: string | null = null;
+  try {
+    counts = await getCounts();
+  } catch (e) {
+    error = e instanceof Error ? e.message : "unknown error";
+  }
+
   return (
-    <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-4 p-6">
-      <h1 className="text-3xl font-semibold">usak</h1>
-      <p className="text-muted-foreground">
-        Who owes how much, for which property, and have they paid?
-      </p>
-      <p className="text-sm">
-        Database:{" "}
-        <span className={status.ok ? "text-green-600" : "text-red-600"}>
-          {status.ok ? "connected" : "not connected"}
-        </span>{" "}
-        <span className="text-muted-foreground">({status.detail})</span>
-      </p>
+    <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 p-6">
+      <div>
+        <h1 className="text-3xl font-semibold">usak</h1>
+        <p className="text-muted-foreground">
+          Who owes how much, for which property, and have they paid?
+        </p>
+      </div>
+      {error ? (
+        <p className="text-sm text-red-600">Database not connected: {error}</p>
+      ) : (
+        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {[
+            ["Properties", counts!.property],
+            ["Units", counts!.unit],
+            ["Tenants", counts!.tenant],
+            ["Leases", counts!.lease],
+            ["Maintenance", counts!.maintenanceRequest],
+          ].map(([label, n]) => (
+            <div key={label} className="rounded-lg border p-3">
+              <dt className="text-muted-foreground text-xs">{label}</dt>
+              <dd className="text-2xl font-semibold">{n}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </main>
   );
 }
