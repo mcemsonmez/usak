@@ -4,39 +4,51 @@ AI-powered rental property management platform (similar to Grento). Full plan: [
 
 ## Goal
 
-Make rental property management simple for everyone from single-unit landlords to large portfolios.
-The MVP answers one question: **"Who owes how much, for which property, and have they paid?"**
+A 6-hour build. Make rental property management simple for landlords.
+The demo answers one question: **"Who owes how much, for which property, and have they paid?"**
+and shows what the available products (Apify, Featherless, PostHog, PangeAI) add on top.
 
-MVP scope (Phases 1–4): properties, units and tenants, leases, monthly rent charges,
-bank statement (CSV) import with automatic payment matching, debtor list, reminder emails,
-a basic dashboard.
+The full long-term plan (9 phases, 14–18 weeks) is in `usak.pdf`. This repo builds only the
+demo-able core in 6 hours; everything else is out of scope.
 
-After the MVP (Phases 5–8): AI assistant (data extraction from lease PDFs, chat, morning digest),
-tenant portal and QR-based maintenance requests, expenses, meters, reports, Stripe subscriptions,
-REST API.
+## Scope (6 hours)
 
-## Roadmap
+**Must have**
+- Properties, units, tenants and leases (seeded demo data + simple create forms)
+- Monthly rent charges generated from leases
+- Bank statement CSV import with automatic matching (variable symbol + amount),
+  partial payments, an "needs review" list
+- Debtor list and a dashboard (expected vs. collected, total debt, occupancy)
+- One AI feature: upload a lease (PDF/image), extract fields with a vision model,
+  user reviews and approves before saving
 
-| Phase | Topic | Duration |
-|---|---|---|
-| 0 | Preparation: target market, currency, languages, repo | ~3 days |
-| 1 | Auth + multi-tenancy, data schema, app shell + i18n | 1 week |
-| 2 | Property, unit and tenant CRUD + CSV/Excel import | 1 week |
-| 3 | Leases, monthly charge engine, lease expiry alerts | 1.5 weeks |
-| 4 | Bank import, automatic matching, debt tracking, dashboard: **MVP launch** | 2 weeks |
-| 5 | AI assistant | 2 weeks |
-| 6 | Tenant portal, maintenance requests, document storage | 1.5 weeks |
-| 7 | Expenses, meters, reports | 2 weeks |
-| 8 | Commercialization: subscriptions, marketing site, onboarding, API | 2 weeks |
+**Nice to have (only if time is left)**
+- Market rent comparison from listing sites via Apify
+- Location enrichment / area insights for properties via PangeAI
+- Reminder email drafts written by an LLM
+
+**Out of scope:** auth and multi-tenancy (single demo organization), real email sending,
+tenant portal, maintenance requests, expenses, meters, subscriptions, background job infra.
+
+## Time plan
+
+| Time | Block |
+|---|---|
+| 0:00–0:30 | Skeleton: Next.js, DB, schema, seed data |
+| 0:30–2:00 | Properties / units / tenants / leases pages + charge generation |
+| 2:00–3:30 | CSV import + matching engine (with tests) + debtor list |
+| 3:30–4:30 | AI lease extraction (Featherless vision) + PostHog LLM analytics |
+| 4:30–5:15 | Dashboard + one nice-to-have (Apify or PangeAI) |
+| 5:15–6:00 | Polish, demo script, deploy, README |
 
 ## Planned stack
 
-Next.js 15 (App Router) · TypeScript · Tailwind + shadcn/ui · PostgreSQL + Drizzle ·
-Better Auth · Zod · Inngest · Resend · Claude API · Vitest + Playwright · Vercel
+Next.js 15 (App Router) · TypeScript · Tailwind + shadcn/ui · PostgreSQL + Drizzle · Zod ·
+Vitest · Vercel. AI via Featherless (OpenAI-compatible) and/or Claude API.
 
 ## Available products
 
-The use cases below are suggestions; which product goes into which phase has not been decided yet.
+The use cases below are suggestions; the 6-hour scope above says which ones are planned.
 
 ### Apify
 - **Apify Store (Actors):** ready-made scrapers/automations, e.g. rent data from listing sites (rent estimation)
@@ -65,7 +77,7 @@ The use cases below are suggestions; which product goes into which phase has not
   area analysis, location features for rent estimation
 
 ## Open decisions
-- Target market (Turkey or Czechia), currency and languages
-- Error tracking: Sentry or PostHog?
-- How to split AI work between Claude API and Featherless
-- Which phase Apify and PangeAI come in
+- Demo market and currency (e.g. Czechia / CZK or Turkey / TRY)
+- Hosted Postgres (Neon/Supabase) or local Docker for the demo
+- Which nice-to-have to build: Apify rent comparison or PangeAI location insights
+- Who builds what (2 people)

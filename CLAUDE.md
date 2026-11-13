@@ -1,13 +1,15 @@
 # Project: Rental Property Management Platform (usak)
 
-AI-powered rental property management platform, similar to Grento. Full plan and per-phase
-prompts: `usak.pdf` (in Turkish). Project description, roadmap and available products: `README.md`.
+AI-powered rental property management platform, similar to Grento.
 
-Status: no code yet. First step is Phase 0 / Prompt 0.1 (project skeleton).
+**This is a 6-hour project.** Scope and time plan: `README.md`. `usak.pdf` (in Turkish) is the
+long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
+
+Status: no code yet. First step is the skeleton (Next.js, DB, schema, seed data).
 
 ## Stack (planned)
-Next.js 15 App Router, TypeScript strict, Tailwind + shadcn/ui,
-Drizzle + PostgreSQL, Better Auth, Zod, Inngest, Resend, Vitest, Playwright.
+Next.js 15 App Router, TypeScript strict, Tailwind + shadcn/ui, Drizzle + PostgreSQL, Zod, Vitest.
+No auth, no background job infra, no real email sending (out of scope for 6 hours).
 
 Available external products (details in README): Apify (Actors, Actors MCP Server,
 Website Content Crawler, RAG Web Browser, Browser Use, Crawlee), Featherless (OpenAI-compatible
@@ -16,22 +18,22 @@ Heatmaps, Feature Flags, Experiments, Surveys, Error Tracking, Logs, Workflows, 
 Warehouse, PostHog AI, MCP), PangeAI (geospatial intelligence).
 
 ## Rules
-- Every table has `organizationId`; every query filters by it (multi-tenant).
+- Speed over completeness: build the smallest thing that demos well. Ask before adding scope.
+- Single demo organization; keep `organizationId` on tables so multi-tenancy can come later.
 - Money is stored as integers in minor units (cents/haléř), never floats.
 - Dates are stored in UTC and shown in the user's time zone in the UI.
 - Server Actions validate input with Zod.
-- UI strings come from i18n files (tr, en, cs).
-- New feature = ships with tests.
-- AI output is never written directly; suggestion + user approval + audit log.
-- No out-of-scope features before Phase 4 (MVP).
+- UI in English only (no i18n for now).
+- Tests only where money logic lives (charge generation, payment matching).
+- AI output is never saved directly; the user reviews and approves it first.
 - Code, comments, commits and docs are in English.
 
 ## Commands (once the skeleton exists)
-- `pnpm dev` / `pnpm test` / `pnpm e2e` / `pnpm db:migrate` / `pnpm lint`
+- `pnpm dev` / `pnpm test` / `pnpm db:migrate` / `pnpm db:seed` / `pnpm lint`
 
 ## Folder structure (planned)
 src/app (pages), src/server (business logic), src/db (schema), src/components
 
 ## Workflow
-One branch per phase, one commit per step (prompt). Plan first, then code, then test,
-then commit.
+Work on `main` (or short feature branches), commit small and often, push frequently so
+the teammate stays in sync. Follow the time plan in README; if a block runs over, cut scope.
