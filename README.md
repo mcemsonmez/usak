@@ -55,7 +55,7 @@ pnpm dev               # http://localhost:3000 (landing), /dashboard (app)
 
 For a live demo use `pnpm demo` (production build: faster, and no dev overlay).
 
-Reset the demo at any time with `pnpm db:seed`.
+Reset the demo at any time with `pnpm db:seed`. Step-by-step start, stop and troubleshooting: [`presentation/START.md`](presentation/START.md).
 
 | Command | What it does |
 |---|---|
