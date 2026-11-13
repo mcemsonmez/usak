@@ -1,6 +1,6 @@
 # usak: Long-term plan
 
-English version of `usak.pdf` (Nov 13, 2026). This is the full 14–18 week plan. The 6-hour
+Written Nov 13, 2026. This is the full 14–18 week plan. The 6-hour
 build scope is in `README.md`; use this document as reference for the data model and logic.
 
 ## Summary
