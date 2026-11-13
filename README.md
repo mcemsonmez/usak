@@ -1,71 +1,71 @@
 # usak
 
-AI destekli kiralık mülk yönetim platformu (Grento benzeri). Tam plan: [`usak.pdf`](usak.pdf).
+AI-powered rental property management platform (similar to Grento). Full plan: [`usak.pdf`](usak.pdf) (in Turkish).
 
-## Amaç
+## Goal
 
-Tek daireli ev sahibinden büyük portföylere kadar kiralık mülk yönetimini kolaylaştırmak.
-MVP tek bir soruyu çözer: **"Kim, hangi mülk için, ne kadar borçlu ve ödedi mi?"**
+Make rental property management simple for everyone from single-unit landlords to large portfolios.
+The MVP answers one question: **"Who owes how much, for which property, and have they paid?"**
 
-MVP kapsamı (Faz 1–4): mülk, birim ve kiracı kayıtları, sözleşmeler, aylık kira tahakkuku,
-banka ekstresi (CSV) import ve otomatik ödeme eşleştirme, borç listesi, hatırlatma e-postaları,
-basit dashboard.
+MVP scope (Phases 1–4): properties, units and tenants, leases, monthly rent charges,
+bank statement (CSV) import with automatic payment matching, debtor list, reminder emails,
+a basic dashboard.
 
-MVP sonrası (Faz 5–8): AI asistan (sözleşme PDF'inden veri çıkarma, sohbet, sabah özeti),
-kiracı portalı ve QR ile arıza bildirimi, giderler, sayaçlar, raporlar, Stripe abonelik,
+After the MVP (Phases 5–8): AI assistant (data extraction from lease PDFs, chat, morning digest),
+tenant portal and QR-based maintenance requests, expenses, meters, reports, Stripe subscriptions,
 REST API.
 
-## Yol haritası
+## Roadmap
 
-| Faz | Konu | Süre |
+| Phase | Topic | Duration |
 |---|---|---|
-| 0 | Hazırlık: pazar, para birimi, dil seçimi, repo | ~3 gün |
-| 1 | Auth + multi-tenant, veri şeması, uygulama kabuğu + i18n | 1 hafta |
-| 2 | Mülk, birim, kiracı CRUD + CSV/Excel içe aktarma | 1 hafta |
-| 3 | Sözleşmeler, aylık tahakkuk motoru, bitiş uyarıları | 1,5 hafta |
-| 4 | Banka import, otomatik eşleştirme, borç takibi, dashboard: **MVP yayını** | 2 hafta |
-| 5 | AI asistan | 2 hafta |
-| 6 | Kiracı portalı, arıza bildirimi, belge deposu | 1,5 hafta |
-| 7 | Giderler, sayaçlar, raporlar | 2 hafta |
-| 8 | Ticarileştirme: abonelik, pazarlama sitesi, onboarding, API | 2 hafta |
+| 0 | Preparation: target market, currency, languages, repo | ~3 days |
+| 1 | Auth + multi-tenancy, data schema, app shell + i18n | 1 week |
+| 2 | Property, unit and tenant CRUD + CSV/Excel import | 1 week |
+| 3 | Leases, monthly charge engine, lease expiry alerts | 1.5 weeks |
+| 4 | Bank import, automatic matching, debt tracking, dashboard: **MVP launch** | 2 weeks |
+| 5 | AI assistant | 2 weeks |
+| 6 | Tenant portal, maintenance requests, document storage | 1.5 weeks |
+| 7 | Expenses, meters, reports | 2 weeks |
+| 8 | Commercialization: subscriptions, marketing site, onboarding, API | 2 weeks |
 
-## Planlanan stack
+## Planned stack
 
 Next.js 15 (App Router) · TypeScript · Tailwind + shadcn/ui · PostgreSQL + Drizzle ·
 Better Auth · Zod · Inngest · Resend · Claude API · Vitest + Playwright · Vercel
 
-## Kullanılabilir ürünler
+## Available products
 
-Kullanım alanları öneri niteliğinde; hangisinin hangi fazda kullanılacağı henüz kesinleşmedi.
+The use cases below are suggestions; which product goes into which phase has not been decided yet.
 
 ### Apify
-- **Apify Store (Actors):** hazır scraper/otomasyonlar, ör. ilan sitelerinden kira verisi (kira tahmini)
-- **Actors MCP Server:** Actor'ları AI asistana araç olarak açmak
-- **Website Content Crawler:** kira hukuku, vergi ve banka dokümanlarını RAG için toplamak
-- **RAG Web Browser:** asistanın güncel web bilgisiyle cevap vermesi
-- **Browser Use:** API'si olmayan portallardan veri almak
-- **Crawlee:** kendi crawler'larımızı TypeScript ile yazmak
+- **Apify Store (Actors):** ready-made scrapers/automations, e.g. rent data from listing sites (rent estimation)
+- **Actors MCP Server:** expose Actors to the AI assistant as tools
+- **Website Content Crawler:** collect rental law, tax and bank documentation for RAG
+- **RAG Web Browser:** let the assistant answer with up-to-date web information
+- **Browser Use:** pull data from portals that have no API
+- **Crawlee:** write our own crawlers in TypeScript
 
 ### Featherless
-- **Featherless API (OpenAI uyumlu):** açık modellerle ucuz LLM işleri (özet, sınıflandırma)
-- **Vision modelleri:** taranmış sözleşme/makbuz görsellerinden veri çıkarma, arıza fotoğrafı sınıflandırma
+- **Featherless API (OpenAI-compatible):** cheap LLM tasks on open models (summaries, classification)
+- **Vision models:** extract data from scanned lease/receipt images, classify maintenance photos
 
 ### PostHog
-- **AI Observability (LLM Analytics):** LLM çağrılarının maliyet, gecikme ve hata takibi
-- **Product Analytics / Web Analytics:** özellik kullanımı, onboarding hunisi, site trafiği
-- **Session Replay / Heatmaps:** beta kullanıcıların nerede takıldığını görmek
-- **Feature Flags / Experiments:** özellikleri kademeli açmak, A/B testleri
-- **Surveys:** beta kullanıcı geri bildirimi
-- **Error Tracking / Logs:** hata ve sunucu log takibi (spec'teki Sentry'nin alternatifi)
-- **Workflows / Data Warehouse:** olay bazlı otomasyon, veriyi birleştirip sorgulama
-- **PostHog AI / PostHog MCP / Self-driving mode:** analitik veriye doğal dil ve MCP ile erişim
+- **AI Observability (LLM Analytics):** cost, latency and error tracking for LLM calls
+- **Product Analytics / Web Analytics:** feature usage, onboarding funnel, site traffic
+- **Session Replay / Heatmaps:** see where beta users get stuck
+- **Feature Flags / Experiments:** gradual rollouts, A/B tests
+- **Surveys:** beta user feedback
+- **Error Tracking / Logs:** error and server log tracking (alternative to Sentry from the spec)
+- **Workflows / Data Warehouse:** event-based automations, joining and querying data
+- **PostHog AI / PostHog MCP / Self-driving mode:** natural language and MCP access to analytics data
 
 ### PangeAI
-- **Geospatial intelligence platformu:** mülk adreslerini konum verisiyle zenginleştirme,
-  bölge analizi, kira tahmininde konum özellikleri
+- **Geospatial intelligence platform:** enrich property addresses with location data,
+  area analysis, location features for rent estimation
 
-## Açık kararlar
-- Hedef pazar (Türkiye mi, Çekya mı), para birimi ve diller
-- Error tracking: Sentry mi PostHog mu?
-- AI işlerinin Claude API ile Featherless arasında nasıl bölüneceği
-- Apify ve PangeAI'nin hangi fazda devreye gireceği
+## Open decisions
+- Target market (Turkey or Czechia), currency and languages
+- Error tracking: Sentry or PostHog?
+- How to split AI work between Claude API and Featherless
+- Which phase Apify and PangeAI come in

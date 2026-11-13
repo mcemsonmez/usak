@@ -1,36 +1,37 @@
-# Proje: Kiralık Mülk Yönetim Platformu (usak)
+# Project: Rental Property Management Platform (usak)
 
-Grento benzeri, AI destekli kiralık mülk yönetim platformu. Tam plan ve faz promptları:
-`usak.pdf`. Proje açıklaması, yol haritası ve kullanılabilir ürünler: `README.md`.
+AI-powered rental property management platform, similar to Grento. Full plan and per-phase
+prompts: `usak.pdf` (in Turkish). Project description, roadmap and available products: `README.md`.
 
-Durum: kod henüz yok. İlk adım Faz 0 / Prompt 0.1 (proje iskeleti).
+Status: no code yet. First step is Phase 0 / Prompt 0.1 (project skeleton).
 
-## Stack (planlanan)
+## Stack (planned)
 Next.js 15 App Router, TypeScript strict, Tailwind + shadcn/ui,
 Drizzle + PostgreSQL, Better Auth, Zod, Inngest, Resend, Vitest, Playwright.
 
-Kullanılabilir dış ürünler (detaylar README'de): Apify (Actors, Actors MCP Server,
-Website Content Crawler, RAG Web Browser, Browser Use, Crawlee), Featherless (OpenAI uyumlu
-API, vision modelleri), PostHog (LLM Analytics, Product/Web Analytics, Session Replay,
+Available external products (details in README): Apify (Actors, Actors MCP Server,
+Website Content Crawler, RAG Web Browser, Browser Use, Crawlee), Featherless (OpenAI-compatible
+API, vision models), PostHog (LLM Analytics, Product/Web Analytics, Session Replay,
 Heatmaps, Feature Flags, Experiments, Surveys, Error Tracking, Logs, Workflows, Data
 Warehouse, PostHog AI, MCP), PangeAI (geospatial intelligence).
 
-## Kurallar
-- Her tablo `organizationId` içerir; her sorgu bununla filtrelenir (multi-tenant).
-- Para tutarları integer (kuruş/haléř) olarak saklanır, asla float değil.
-- Tarihler UTC saklanır, UI'da kullanıcının saat diliminde gösterilir.
-- Server Actions Zod ile validasyon yapar.
-- UI metinleri i18n dosyasından gelir (tr, en, cs).
-- Yeni özellik = test ile birlikte.
-- AI çıktıları asla doğrudan yazılmaz; öneri + kullanıcı onayı + audit log.
-- Faz 4'ten (MVP) önce kapsam dışı özellik eklenmez.
+## Rules
+- Every table has `organizationId`; every query filters by it (multi-tenant).
+- Money is stored as integers in minor units (cents/haléř), never floats.
+- Dates are stored in UTC and shown in the user's time zone in the UI.
+- Server Actions validate input with Zod.
+- UI strings come from i18n files (tr, en, cs).
+- New feature = ships with tests.
+- AI output is never written directly; suggestion + user approval + audit log.
+- No out-of-scope features before Phase 4 (MVP).
+- Code, comments, commits and docs are in English.
 
-## Komutlar (iskelet kurulunca)
+## Commands (once the skeleton exists)
 - `pnpm dev` / `pnpm test` / `pnpm e2e` / `pnpm db:migrate` / `pnpm lint`
 
-## Klasör yapısı (planlanan)
-src/app (sayfalar), src/server (iş mantığı), src/db (şema), src/components
+## Folder structure (planned)
+src/app (pages), src/server (business logic), src/db (schema), src/components
 
-## Çalışma düzeni
-Her faz bir branch, her adım (prompt) bir commit. Önce plan, sonra kod, sonra test,
-sonra commit.
+## Workflow
+One branch per phase, one commit per step (prompt). Plan first, then code, then test,
+then commit.
