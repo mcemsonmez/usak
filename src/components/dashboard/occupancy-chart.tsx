@@ -24,30 +24,32 @@ export function OccupancyChart({
           {occupied} of {total} units let
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative grid place-items-center">
-        <ChartContainer config={config} className="aspect-square h-[190px]">
-          <RadialBarChart
-            data={[{ occupied: pct }]}
-            innerRadius="72%"
-            outerRadius="100%"
-            startAngle={90}
-            endAngle={-270}
-          >
-            <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-            <RadialBar
-              dataKey="occupied"
-              background={{ fill: "var(--track)" }}
-              cornerRadius={12}
-              fill="var(--color-occupied)"
-              animationDuration={1200}
-            />
-          </RadialBarChart>
-        </ChartContainer>
-        <div className="pointer-events-none absolute inset-0 grid place-content-center text-center">
-          <span className="font-mono text-4xl font-semibold tracking-tight tabular-nums">
-            {pct}%
-          </span>
-          <span className="text-muted-foreground text-xs">let</span>
+      <CardContent className="grid place-items-center">
+        <div className="relative size-[190px]">
+          <ChartContainer config={config} className="aspect-square size-full">
+            <RadialBarChart
+              data={[{ occupied: pct }]}
+              innerRadius="72%"
+              outerRadius="100%"
+              startAngle={90}
+              endAngle={-270}
+            >
+              <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
+              <RadialBar
+                dataKey="occupied"
+                background={{ fill: "var(--track)" }}
+                cornerRadius={12}
+                fill="var(--color-occupied)"
+                animationDuration={1200}
+              />
+            </RadialBarChart>
+          </ChartContainer>
+          <div className="pointer-events-none absolute inset-0 grid place-content-center text-center">
+            <span className="font-mono text-4xl font-semibold tracking-tight tabular-nums">
+              {pct}%
+            </span>
+            <span className="text-muted-foreground text-xs">let</span>
+          </div>
         </div>
         <ul className="mt-4 grid w-full gap-2.5">
           {byProperty.map((p) => (
@@ -60,7 +62,7 @@ export function OccupancyChart({
               </div>
               <div className="bg-track h-1.5 overflow-hidden rounded-full">
                 <div
-                  className="grow-x bg-lime h-full rounded-full"
+                  className="grow-x h-full rounded-full bg-(--chart-1)"
                   style={{ width: `${(p.occupied / p.total) * 100}%` }}
                 />
               </div>
