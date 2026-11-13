@@ -1,7 +1,28 @@
 # usak
 
-AI-powered rental property management for landlords (similar to Grento), built in 6 hours.
-It answers one question: **"Who owes how much, for which property, and have they paid?"**
+**Rent collection that chases itself.** usak is AI-powered rental property management for
+landlords in Prague, from one flat to a whole building. Every morning it answers one question:
+**who owes how much, for which property, and have they paid?**
+
+Drop in your bank's CSV export and every payment is matched to the lease it pays, even when the
+tenant forgot the reference or paid too little. Photograph a signed lease and AI fills it in for
+you. Click a unit to see how its rent compares with live listings nearby, or find a rated plumber
+around the corner in seconds.
+
+Built in 6 hours at a hackathon with [Featherless](https://featherless.ai), [Apify](https://apify.com)
+and [PostHog](https://posthog.com).
+
+| | |
+|---|---|
+| **Matching** | Bank CSV (Fio, ČSOB, KB, Česká spořitelna) matched to leases by variable symbol or the payer's usual account; partial payments, credit and a review queue |
+| **AI** | A vision model reads lease photos; nothing is saved until you approve |
+| **Live data** | Market rent from current listings, repairers from Google Maps |
+| **At a glance** | Who owes what, collections over time, occupancy, leases ending soon |
+
+## Team
+
+- [@mcemsonmez](https://github.com/mcemsonmez)
+- [Yasin Sezgin (@gweilnid)](https://github.com/gweilnid)
 
 Long-term plan (9 phases, 14–18 weeks): [`PLAN.md`](PLAN.md).
 
