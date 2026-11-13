@@ -2,7 +2,7 @@
 
 AI-powered rental property management platform, similar to Grento.
 
-**This is a 6-hour project.** Scope and time plan: `README.md`. `usak.pdf` (in Turkish) is the
+**This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` (English version of `usak.pdf`) is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
 Status: no code yet. First step is the skeleton (Next.js, DB, schema, seed data).

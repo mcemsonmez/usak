@@ -1,13 +1,13 @@
 # usak
 
-AI-powered rental property management platform (similar to Grento). Full plan: [`usak.pdf`](usak.pdf) (in Turkish).
+AI-powered rental property management platform (similar to Grento). Full plan: [`PLAN.md`](PLAN.md).
 
 ## Goal
 
 A 6-hour build. Make rental property management simple for landlords.
 The demo answers one question: **"Who owes how much, for which property, and have they paid?"**
 
-The full long-term plan (9 phases, 14–18 weeks) is in `usak.pdf`. This repo builds only the
+The full long-term plan (9 phases, 14–18 weeks) is in `PLAN.md`. This repo builds only the
 demo-able core in 6 hours; everything else is out of scope.
 
 ## Scope (6 hours)
