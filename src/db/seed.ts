@@ -2,6 +2,8 @@
 // Run: pnpm db:seed
 import "dotenv/config";
 import { sql } from "drizzle-orm";
+import { periodOf, shiftPeriod } from "../server/billing/charges";
+import { generateCharges } from "../server/billing/generate";
 import { db } from "./index";
 import { lease, maintenanceRequest, organization, property, tenant, unit } from "./schema";
 
@@ -244,6 +246,14 @@ async function main() {
       status: "in_progress",
     },
   ]);
+
+  // Charges for the two previous months. The current month is left for the
+  // "Generate charges" button in the demo.
+  const current = periodOf(new Date().toISOString().slice(0, 10));
+  for (const period of [shiftPeriod(current, -2), shiftPeriod(current, -1)]) {
+    const { created } = await generateCharges(db, organizationId, period);
+    console.log(`Charges for ${period}: ${created}`);
+  }
 
   console.log(
     "Seeded: 1 organization, 3 properties, 7 units, 6 tenants, 6 leases, 2 maintenance requests",
