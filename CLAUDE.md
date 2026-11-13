@@ -5,7 +5,7 @@ AI-powered rental property management platform, similar to Grento.
 **This is a 6-hour project.** Scope and time plan: `README.md`. `PLAN.md` is the
 long-term 14–18 week plan; use it only as reference for data model and logic, not for scope.
 
-Status: steps 1–8 done. Next: step 9 (polish, demo script). Demo currency: CZK (Prague demo data).
+Status: all 9 steps done. Demo script in README. Reset demo data with `pnpm db:seed`. Demo currency: CZK (Prague demo data).
 
 ## Steps
 1. Skeleton: Next.js 15, Tailwind, shadcn/ui, Postgres in Docker, Drizzle (done)
@@ -22,7 +22,8 @@ Find repairers (`src/server/maintenance/`): `findRepairers` uses the Apify Googl
 `contactRepairer` only returns the message that would be sent (email/SMS not implemented).
 Use district-level locations ("Praha 2, Czechia"); exact addresses return too few results.
 Dev routes: `/api/repairers`, `/api/market-rent`.
-9. Polish, demo script, deploy
+9. Polish (done): client-side PostHog (pageviews, replay), README with demo script, build verified.
+   Not deployed: needs a hosted Postgres.
 
 ## Stack (planned)
 Next.js 15 App Router, TypeScript strict, Tailwind + shadcn/ui, Drizzle + PostgreSQL (local Docker), Zod, Vitest.

@@ -1,52 +1,33 @@
 # usak
 
-AI-powered rental property management platform (similar to Grento). Full plan: [`PLAN.md`](PLAN.md).
+AI-powered rental property management for landlords (similar to Grento), built in 6 hours.
+It answers one question: **"Who owes how much, for which property, and have they paid?"**
 
-## Goal
+Long-term plan (9 phases, 14–18 weeks): [`PLAN.md`](PLAN.md).
 
-A 6-hour build. Make rental property management simple for landlords.
-The demo answers one question: **"Who owes how much, for which property, and have they paid?"**
+## Features
 
-The full long-term plan (9 phases, 14–18 weeks) is in `PLAN.md`. This repo builds only the
-demo-able core in 6 hours; everything else is out of scope.
+- **Records:** properties, units, tenants and leases. Overlapping leases on a unit are blocked;
+  each lease gets a unique variable symbol (payment reference).
+- **Monthly charges:** rent and service charges per lease, prorated for partial months.
+  Safe to run twice for the same month.
+- **Bank statement import:** CSV from any bank (Czech formats included). Payments are matched
+  automatically: by variable symbol, or by a known account paying the usual amount.
+  Oldest debt is paid first; partial and overpayments are tracked; anything unclear goes to a
+  review list and can be matched by hand. Importing the same file twice is safe.
+- **Debtors:** overdue amount, days late and reminder level (polite at 3 days, serious at 10,
+  final notice at 20) with a ready-to-send reminder draft.
+- **Dashboard:** collected vs. billed, overdue total, occupancy, payments to review,
+  maintenance, collections by month, leases ending soon.
+- **AI lease import:** upload a photo or scan of a signed lease; a vision model fills in the
+  tenant, unit, dates and amounts. Nothing is saved until you check and approve it.
+- **Market rent:** compare a unit's rent with live listing prices in its district.
+- **Maintenance:** log issues, move them across a status board, find rated repairers nearby
+  and draft a message to them.
+- **Analytics:** pageviews and every AI call are tracked.
 
-## Scope (6 hours)
-
-**Must have**
-- Properties, units, tenants and leases (seeded demo data + simple create forms)
-- Monthly rent charges generated from leases
-- Bank statement CSV import with automatic matching (variable symbol + amount),
-  partial payments, an "needs review" list
-- Debtor list and a dashboard (expected vs. collected, total debt, occupancy)
-- One AI feature: upload a lease (PDF/image), extract fields with a vision model,
-  user reviews and approves before saving
-
-- Find repairers near a property for a maintenance request (contacting them returns a
-  draft message for now; no real email/SMS)
-
-**Nice to have (only if time is left)**
-- Market rent comparison from listing sites
-- Location enrichment / area insights for properties
-- Reminder email drafts written by an LLM
-
-**Out of scope:** auth and multi-tenancy (single demo organization), real email sending,
-tenant portal, maintenance requests, expenses, meters, subscriptions, background job infra.
-
-## Time plan
-
-| Time | Block |
-|---|---|
-| 0:00–0:30 | Skeleton: Next.js, DB, schema, seed data |
-| 0:30–2:00 | Properties / units / tenants / leases pages + charge generation |
-| 2:00–3:30 | CSV import + matching engine (with tests) + debtor list |
-| 3:30–4:30 | AI lease extraction + LLM analytics |
-| 4:30–5:15 | Dashboard + one nice-to-have |
-| 5:15–6:00 | Polish, demo script, deploy, README |
-
-## Planned stack
-
-Next.js 15 (App Router) · TypeScript · Tailwind + shadcn/ui · PostgreSQL + Drizzle · Zod ·
-Vitest · Vercel.
+Not included (yet): login and multiple organizations, sending real emails/SMS, tenant portal,
+expenses, meters, subscriptions.
 
 ## Getting started
 
@@ -54,13 +35,64 @@ Requirements: Node.js 20+, pnpm 9, Docker.
 
 ```bash
 pnpm install
-cp .env.example .env   # then fill in the keys
+cp .env.example .env   # fill in the API keys
 pnpm db:up             # Postgres in Docker
 pnpm db:reset          # create tables + demo data
 pnpm dev               # http://localhost:3000
 ```
 
-## Open decisions
+Reset the demo at any time with `pnpm db:seed`.
 
-- Which nice-to-have to build: rent comparison or location insights
-- Who builds what (2 people)
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Start the app |
+| `pnpm test` | Unit tests (charges, matching, CSV parsing, debtors, AI parsing, ranking) |
+| `pnpm lint` / `pnpm typecheck` / `pnpm format` | Code quality |
+| `pnpm db:up` / `pnpm db:down` | Start / stop Postgres |
+| `pnpm db:generate` / `pnpm db:migrate` / `pnpm db:studio` | Database schema |
+| `pnpm db:seed` / `pnpm db:reset` | Reload demo data / migrate + reload |
+
+## Demo script (about 5 minutes)
+
+Demo data: a Prague landlord with 3 properties, 7 units, 6 tenants, two months of payment
+history. Petr still owes part of last month's rent.
+
+1. **Dashboard** – collections for the last two months, Petr overdue with a final notice,
+   two leases ending in under 60 days.
+2. **Charges** – click *Generate charges* for this month: 12 charges, Lucie's first month is
+   prorated (she moved in on the 10th). Click again: nothing is duplicated.
+3. **Payments** – download the sample statement on the page and import it:
+   - Jana and Tomáš: matched by variable symbol
+   - Eva: no variable symbol, matched by her known account and usual amount
+   - Kavárna: overpaid, shown as credit
+   - Petr: partial, goes to last month's debt first
+   - Pavel Dvořák (wrong variable symbol): lands in *Needs review*; match it to Lucie by hand
+   - Bank fee: ignored
+
+   Import the same file again: everything is skipped.
+4. **Debtors** – Petr is still overdue; open *Draft reminder* to see the final notice.
+5. **Leases → Import with AI** – download the sample lease, upload it, click *Read with AI*.
+   The form fills in Martin Král, Loft C, dates and amounts; approve to save the lease and the
+   new tenant.
+6. **Properties → Vinohrady Residence** – click *Market rent* on Apt 1: Jana's rent compared
+   with live listings in Praha 2 (takes 30–60 s).
+7. **Maintenance** – *Find repairers* on the leaking sink in Apt 2: plumbers nearby with
+   ratings and phone numbers; *Contact* shows the message that would be sent (about 30 s).
+
+## Project structure
+
+```
+src/app           pages (server components, always filtered by the demo organization)
+src/server        business logic
+  billing/        charge calculation, debtors, reminders
+  bank/           CSV parsing, payment matching, import, sample statements
+  ai/             lease extraction and AI call analytics
+  apify/          market rent from listings
+  maintenance/    repairer search and contact drafts
+  actions/        Server Actions (Zod-validated)
+src/db            schema, client, seed
+src/components    UI and forms
+```
+
+Money is stored as integers in haléř (100 = 1 CZK). Pure logic (charges, matching, parsing,
+debtors) is separate from the database and covered by unit tests.
