@@ -21,6 +21,9 @@ demo-able core in 6 hours; everything else is out of scope.
 - One AI feature: upload a lease (PDF/image), extract fields with a vision model,
   user reviews and approves before saving
 
+- Find repairers near a property for a maintenance request (contacting them returns a
+  draft message for now; no real email/SMS)
+
 **Nice to have (only if time is left)**
 - Market rent comparison from listing sites
 - Location enrichment / area insights for properties

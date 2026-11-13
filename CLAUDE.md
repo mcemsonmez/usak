@@ -16,6 +16,10 @@ Status: step 1 (skeleton) done. Next: step 2 (schema + seed data).
 6. Debtor list + dashboard
 7. AI lease extraction (Featherless vision), approve before save, PostHog LLM analytics
 8. Nice-to-have: Apify market rent comparison
+
+Added on request: find repairers after a maintenance request (`src/server/maintenance/`).
+`findRepairers` uses the Apify Google Maps scraper; `contactRepairer` only returns the
+message that would be sent (email/SMS sending not implemented). Test route: `/api/repairers`.
 9. Polish, demo script, deploy
 
 ## Stack (planned)
