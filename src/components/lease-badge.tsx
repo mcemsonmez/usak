@@ -13,20 +13,12 @@ export function LeaseBadge({
 }) {
   switch (phase) {
     case "upcoming":
-      return <Badge variant="outline">Upcoming</Badge>;
+      return <Badge variant="secondary">Upcoming</Badge>;
     case "ending_soon":
-      return (
-        <Badge className="bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
-          Ends in {daysBetween(today, endDate!)} days
-        </Badge>
-      );
+      return <Badge variant="warn">Ends in {daysBetween(today, endDate!)} days</Badge>;
     case "ended":
       return <Badge variant="secondary">Ended</Badge>;
     default:
-      return (
-        <Badge className="bg-green-100 text-green-900 dark:bg-green-900/40 dark:text-green-200">
-          Active
-        </Badge>
-      );
+      return <Badge variant="outline">Active</Badge>;
   }
 }

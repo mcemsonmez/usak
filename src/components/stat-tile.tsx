@@ -1,43 +1,52 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+const tones = {
+  none: "",
+  good: "text-good",
+  bad: "text-bad",
+  warn: "text-[oklch(0.5_0.12_65)]",
+} as const;
+
+/** A KPI card: label, big figure, one line of context. Colour only when the figure means something. */
 export function StatTile({
   label,
   value,
   detail,
   href,
-  tone,
+  tone = "none",
 }: {
   label: string;
   value: string;
   detail?: string;
-  href?: string;
-  tone?: "warning" | "critical";
+  href: string;
+  tone?: keyof typeof tones;
 }) {
-  const body = (
-    <>
-      <div className="text-muted-foreground flex items-center gap-1.5 text-xs font-medium">
-        {tone && (
+  return (
+    <Link
+      href={href}
+      className="group bg-card hover:border-foreground/20 grid gap-3 rounded-xl border p-5 shadow-xs transition-[border-color,box-shadow] duration-(--dur-short) ease-(--ease-out) hover:shadow-sm"
+    >
+      <span className="text-muted-foreground flex items-center justify-between text-sm font-medium">
+        {label}
+        {tone !== "none" && (
           <span
             aria-hidden
             className={cn(
               "size-2 rounded-full",
-              tone === "critical" ? "bg-red-600" : "bg-amber-500",
+              tone === "good" && "bg-good",
+              tone === "bad" && "bg-bad",
+              tone === "warn" && "bg-warn",
             )}
           />
         )}
-        {label}
-      </div>
-      <div className="mt-1 text-2xl font-semibold tabular-nums">{value}</div>
-      {detail && <div className="text-muted-foreground mt-0.5 text-xs">{detail}</div>}
-    </>
-  );
-  const className = "rounded-lg border p-4";
-  return href ? (
-    <Link href={href} className={cn(className, "hover:bg-muted/40 transition-colors")}>
-      {body}
+      </span>
+      <span
+        className={cn("font-mono text-3xl font-semibold tracking-tight tabular-nums", tones[tone])}
+      >
+        {value}
+      </span>
+      {detail && <span className="text-muted-foreground text-xs">{detail}</span>}
     </Link>
-  ) : (
-    <div className={className}>{body}</div>
   );
 }

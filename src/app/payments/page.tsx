@@ -151,7 +151,7 @@ export default async function PaymentsPage() {
                       <TableCell className="text-right tabular-nums">
                         {t.amount > 0 ? formatMoney(allocated) : "—"}
                         {t.matchStatus === "overpaid" && (
-                          <div className="text-xs text-blue-700 dark:text-blue-300">
+                          <div className="text-xs font-semibold">
                             +{formatMoney(t.amount - allocated)} credit
                           </div>
                         )}

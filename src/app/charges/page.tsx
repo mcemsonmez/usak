@@ -110,6 +110,14 @@ export default async function ChargesPage({
               </TableCell>
             </TableRow>
           ))}
+          {rows.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={7} className="text-muted-foreground py-12 text-center">
+                No charges for {formatPeriod(period)} yet. Use “Generate charges” to create them
+                from the active leases.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </>

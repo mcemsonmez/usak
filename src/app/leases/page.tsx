@@ -46,7 +46,7 @@ export default async function LeasesPage({
       {created && (
         <p
           role="status"
-          className="mb-4 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-sm text-green-900 dark:border-green-800 dark:bg-green-950 dark:text-green-200"
+          className="border-good/30 bg-good-soft text-good mb-6 rounded-lg border px-4 py-3 text-sm font-medium"
         >
           Lease saved. Variable symbol for payments: <span className="font-mono">{created}</span>
         </p>

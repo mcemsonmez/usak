@@ -19,7 +19,7 @@ export function ManualMatchForm({
         name="leaseId"
         aria-label="Lease"
         defaultValue=""
-        className="border-input bg-background h-8 max-w-64 rounded-md border px-2 text-sm"
+        className="border-input bg-card h-8 max-w-64 rounded-lg border px-2 text-sm shadow-xs"
       >
         <option value="">Match to lease…</option>
         {leases.map((l) => (

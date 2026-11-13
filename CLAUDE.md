@@ -68,7 +68,18 @@ restore with `npx skills experimental_install`):
   `improve-animations`, `review-animations`, `find-animation-opportunities`, `break-ui`, ...
   Native-only ones (`write-swift`, `animate-expo`, `mobile-native`, `apple-design`) do not apply here.
 - Taste Skill (`Leonxlnx/taste-skill`): `design-taste-frontend`.
-Keep the dashboard calm: subtle motion only (data app, used on a projector in the demo).
+- Hallmark (`nutlope/hallmark`): `hallmark` (its Floor rules are followed; full runs only when named).
+
+## Design system
+Light workspace with a black sidebar and one lime accent (inspired by Linear's app shell and
+Ramp's crisp finance UI). Tokens live in `src/app/globals.css`.
+- Geist for text, Geist Mono for money figures (`font-mono tabular-nums`).
+- Status colours have one meaning each: `good` (paid, matched, money in), `bad` (overdue,
+  needs review), `warn` (partial, ending soon). Badge variants: good, bad, warn, ink, outline, secondary.
+- Lime is brand only (active nav, overdue amounts on the dark "Who owes?" board), never a status.
+- White cards with a 1px border and `shadow-xs`; radius 10px.
+- Motion is state feedback only: colour/border transitions at `--dur-micro`, buttons scale to 0.98
+  on press; no transition-all, everything respects reduced motion.
 
 ## Rules
 - Speed over completeness: build the smallest thing that demos well. Ask before adding scope.

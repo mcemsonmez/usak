@@ -13,9 +13,9 @@ export function PageHeader({
   secondaryAction?: { href: string; label: string };
 }) {
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-      <div>
-        <h1 className="text-2xl font-semibold">{title}</h1>
+    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div className="grid gap-1">
+        <h1 className="text-3xl font-semibold">{title}</h1>
         {description && <p className="text-muted-foreground text-sm">{description}</p>}
       </div>
       <div className="flex gap-2">

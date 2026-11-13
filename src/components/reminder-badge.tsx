@@ -1,22 +1,18 @@
 import { Badge } from "@/components/ui/badge";
 import type { ReminderLevel } from "@/server/billing/debtors";
 
-export function ReminderBadge({ level }: { level: ReminderLevel }) {
+export function ReminderBadge({ level, onDark }: { level: ReminderLevel; onDark?: boolean }) {
   switch (level) {
     case "final":
-      return <Badge variant="destructive">Final notice</Badge>;
+      return onDark ? (
+        <Badge className="text-ink bg-white">Final notice</Badge>
+      ) : (
+        <Badge variant="ink">Final notice</Badge>
+      );
     case "serious":
-      return (
-        <Badge className="bg-orange-100 text-orange-900 dark:bg-orange-900/40 dark:text-orange-200">
-          Serious
-        </Badge>
-      );
+      return <Badge variant="bad">Serious</Badge>;
     case "polite":
-      return (
-        <Badge className="bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
-          Polite reminder
-        </Badge>
-      );
+      return <Badge variant="warn">Polite reminder</Badge>;
     default:
       return <Badge variant="outline">Grace period</Badge>;
   }

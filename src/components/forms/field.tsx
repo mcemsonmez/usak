@@ -50,7 +50,7 @@ export function SelectField({
         id={name}
         name={name}
         aria-invalid={!!errors?.length}
-        className="border-input bg-background focus-visible:ring-ring/50 aria-invalid:border-destructive h-9 rounded-md border px-3 text-sm shadow-xs outline-none focus-visible:ring-[3px]"
+        className="border-input bg-card aria-invalid:border-destructive h-9 rounded-lg border px-3 text-sm shadow-xs outline-none"
         {...props}
       >
         {placeholder && <option value="">{placeholder}</option>}
