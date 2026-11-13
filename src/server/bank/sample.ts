@@ -53,7 +53,7 @@ export function currentStatementCsv(period: string): string {
     [3, "21 700,00", a.jana.account, a.jana.name, a.jana.vs, msg], // exact
     [4, "52 000,00", a.kavarna.account, a.kavarna.name, a.kavarna.vs, msg], // overpaid by 1 000
     [6, "24 500,00", a.eva.account, a.eva.name, "", "Najem Loft B"], // no VS, known account
-    [7, "15 000,00", a.petr.account, a.petr.name, a.petr.vs, msg], // partial, pays October first
+    [7, "5 000,00", a.petr.account, a.petr.name, a.petr.vs, msg], // partial: October is still not fully paid
     [8, "11 900,00", "5566778899/0300", "Pavel Dvořák", "2026030", "Najem Lucie"], // wrong VS -> review
     [10, "34 700,00", a.tomas.account, a.tomas.name, a.tomas.vs, msg], // exact
     [12, "-150,00", "", "", "", "Poplatek za vedeni uctu"], // bank fee, ignored

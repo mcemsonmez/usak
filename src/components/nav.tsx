@@ -11,6 +11,7 @@ const links = [
   { href: "/leases", label: "Leases" },
   { href: "/charges", label: "Charges" },
   { href: "/payments", label: "Payments" },
+  { href: "/debtors", label: "Debtors" },
 ];
 
 export function Nav() {
